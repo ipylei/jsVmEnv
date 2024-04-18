@@ -1,0 +1,60 @@
+function Window() {
+    //容易被检测到堆栈
+    throw new TypeError("Illegal constructor");
+
+}; catvm.func_set_native(Window);
+
+Object.defineProperties(Window.prototype, {
+    [Symbol.toStringTag]: {
+        value: "Window",
+        configurable: true
+    },
+
+    PERSISTENT: {
+        configurable: false,
+        enumerable: true,
+        value: 1,
+        writable: false
+    },
+
+    TEMPORARY: {
+        configurable: false,
+        enumerable: true,
+        value: 0,
+        writable: false
+    }
+
+});
+
+//--------------------------------------------------------
+//补window额外的属性或方法
+window["outerHeight"] = 824;
+window["outerWidth"] =1536;
+// window["outerHeight"] = 1027;
+// window["outerWidth"] = 1707;
+
+window.open = function open() { debugger }; catvm.func_set_native(window.open);
+window.setTimeout = function setTimeout(func, delay) {
+    //其中func可能是一个方法 也可能是一段文本
+    typeof x == "function" ? func() : undefined;
+    typeof x == "string" ? eval(func) : undefined;
+    //生成uuid, 并保存到内存
+    return 1;
+}; catvm.func_set_native(window.setTimeout);
+
+window.chrome = {
+    app: {},
+    csi: function () { },
+    loadTimes: function () { },
+    runtime: {}
+};
+
+window.DeviceOrientationEvent = function DeviceOrientationEvent() { debugger; }; catvm.func_set_native(window.DeviceOrientationEvent);
+window.DeviceMotionEvent = function DeviceMotionEvent() { debugger; }; catvm.func_set_native(window.DeviceMotionEvent);
+//--------------------------------------------------------
+
+
+//补完window的属性或方法后，再构建起window->Window的原型链
+window.__proto__ = Window.prototype;
+// Window.prototype.__proto__ = WindowProperties.prototype;  //放到WindowProperties.js中去补
+
