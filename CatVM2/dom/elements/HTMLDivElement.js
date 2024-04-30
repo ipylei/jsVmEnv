@@ -1,3 +1,5 @@
+/* div标签 */
+
 function HTMLDivElement() {
     //容易被检测到堆栈
     throw new TypeError("Illegal constructor");
@@ -19,8 +21,8 @@ HTMLDivElement.prototype.__proto__ = HTMLElement.prototype;
 
 // div标签创建方法(不需要new 直接调用就能创建了)
 catvm.memory.htmlElements["div"] = function () {
-    var div = new class div { };
-    div.__proto__ = HTMLDivElement.prototype;
-    return div;
+    var element = new class div { };
+    element.__proto__ = HTMLDivElement.prototype;
+    return element;
 }
 

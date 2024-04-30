@@ -10,6 +10,22 @@ Object.defineProperties(HTMLElement.prototype, {
     }
 });
 
+
+//------------------------------------------------------------
+HTMLElement.prototype.onwheel_ = null;
+Object.defineProperty(HTMLElement.prototype, "onwheel", {
+    get: function () {
+        if (this instanceof HTMLElement) {
+            return HTMLElement.prototype.onwheel_;
+        } else {
+            throw new TypeError("Illegal invocation");
+        }
+    }
+})
+
+
+
+
 //--------------------------------------------------------
 HTMLElement.__proto__ = Element;
 HTMLElement.prototype.__proto__ = Element.prototype;

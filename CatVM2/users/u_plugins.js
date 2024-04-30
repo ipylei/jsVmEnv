@@ -6,13 +6,15 @@ catvm.addPlugin = function (data) {
         mimeType: MimeType.js
         navigator.mimeTypes: MimeTypeArray.js、Navigator.js
     */
-    
-    
+
+
     //创建plugin，创建后它有属于自己的MimeTypes
     var plugin = catvm.memory.Plugin.$new(data);
+    // debugger;
 
     //把plugin放进navigator.plugins
     navigator.plugins[navigator.plugins.length] = plugin;
+    //添加用名称访问方式
     Object.defineProperty(navigator.plugins, plugin.name, {
         value: plugin,
         writable: false,
@@ -24,6 +26,7 @@ catvm.addPlugin = function (data) {
     for (var index = 0; index < plugin.length; index++) {
         var mimeType = plugin[index];
         navigator.mimeTypes[navigator.mimeTypes.length] = mimeType;
+        //添加用名称访问方式
         Object.defineProperty(navigator.mimeTypes, mimeType.type, {
             value: mimeType,
             writable: false,
@@ -63,7 +66,6 @@ var sample2 = {
 
 }
 
-
 var sample3 = {
     description: "",
     filename: "internal-nacl-plugin",
@@ -94,5 +96,5 @@ var sample3 = {
 }
 catvm.addPlugin(sample1);
 catvm.addPlugin(sample2);
-catvm.addPlugin(sample3);
+// catvm.addPlugin(sample3);
 

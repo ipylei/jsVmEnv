@@ -18,8 +18,10 @@ Object.defineProperties(Location.prototype, {
 
 location = new class location { };
 location.href = "";
-location.port = "";
 location.hostname = "";
+location.host = "";
+location.port = "";
+location.protocol = "https:";
 
 location.__proto__ = Location.prototype;
 

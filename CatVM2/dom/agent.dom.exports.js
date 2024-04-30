@@ -8,12 +8,18 @@ function getCode() {
     code += fs.readFileSync(`${__dirname}/Node.js`) + "\r\n";
     code += fs.readFileSync(`${__dirname}/Element.js`) + "\r\n";
     code += fs.readFileSync(`${__dirname}/HTMLElement.js`) + "\r\n";
-    code += fs.readFileSync(`${__dirname}/HTMLDivElement.js`) + "\r\n";
 
     //再加载BOM系列
-    code += fs.readFileSync(`${__dirname}/Node.js`) + "\r\n";
     code += fs.readFileSync(`${__dirname}/Document.js`) + "\r\n";
     code += fs.readFileSync(`${__dirname}/HTMLDocument.js`) + "\r\n"; //继承自Document，含有document对象
+
+    //加载各个标签系列
+    code += fs.readFileSync(`${__dirname}/elements/HTMLHeadElement.js`) + "\r\n";     //head标签(唯一)
+    code += fs.readFileSync(`${__dirname}/elements/HTMLHtmlElement.js`) + "\r\n";     //html标签(唯一)
+
+    code += fs.readFileSync(`${__dirname}/elements/HTMLDivElement.js`) + "\r\n";      //div标签
+    code += fs.readFileSync(`${__dirname}/elements/HTMLAnchorElement.js`) + "\r\n";   //a标签
+    code += fs.readFileSync(`${__dirname}/elements/HTMLCanvasElement.js`) + "\r\n";   //canvas标签
     return code;
 }
 

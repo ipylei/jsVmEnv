@@ -1,13 +1,13 @@
 const fs = require('fs');
 const path = require("path");
-const { VM, VMScript } = require('vm2');
+const ivm = require("is");
 
 // 加载本地框架
 var catvm2 = require('./CatVM2/catvm2.exports.js');
 // 利用框架加载已补的环境代码
 var catvm2code = catvm2.getCode({
     proxy: true,
-    stack: true
+    stack: false
 });
 
 
@@ -25,8 +25,15 @@ console.log(res);
 // const codefile = `${__dirname}/code.js`
 // const codefile = `${path.resolve('./')}\\code.js`;
 
-const initfile = path.join(__dirname, "web_codes", "pdd_init.js");
-const codefile = path.join(__dirname, "web_codes", "pdd_code.js");
+// const initfile = path.join(__dirname, "web_codes", "pdd_init.js");
+// const codefile = path.join(__dirname, "web_codes", "pdd_code.js");
+
+// const initfile = path.join(__dirname, "web_codes", "lesson13_init.js");
+// const codefile = path.join(__dirname, "web_codes", "lesson13_code.js");
+
+const initfile = path.join(__dirname, "web_codes", "lesson15_init.js");
+const codefile = path.join(__dirname, "web_codes", "lesson15_code.js");
+
 const exportfile = path.join(__dirname, "web_codes", "pdd_export.js")
 
 // const codefile = path.join(__dirname, "web_codes", "xhs_code.js");
@@ -44,14 +51,14 @@ const script = new VMScript(
 /* 创建一个vm对象，使用默认配置 */
 // const vm = new VM();
 /* 创建一个vm对象，使用自定义配置*/
-gloabl_obj = { _author: "ipylei", setInterval: setInterval, btoa: btoa, atob: atob };
+gloabl_obj = { _author: "ipylei", setInterval: setInterval, btoa: btoa, atob: atob};
 const vm = new VM({ sandbox: gloabl_obj });
 const my_exports = vm.run(script);
 
 console.log("导出对象获取成功!!!!");
 debugger;
 console.log(my_exports);
-
+console.log("ended......");
 
 
 /* 静态js、伪动态js想怎么处理就怎么处理，以下是动态js处理方案：

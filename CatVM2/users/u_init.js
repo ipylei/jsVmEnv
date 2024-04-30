@@ -1,6 +1,7 @@
 /* 
 注意以下问题：
-    (1)若为属性且绑定在原型上，实例去访问正确，而原型去访问抛出错误：(先绑定到一个中间属性上如Navigator.totalProp，再使用getter和setter 或 __defineGetter__和__defineSetter__来判断this)
+    (1)若为属性且绑定在原型上，实例去访问正确，而原型去访问抛出错误：
+        (先绑定到一个中间属性上如：Navigator.totalProp，再使用getter和setter 或 __defineGetter__和__defineSetter__来判断this)
     (2)若为方法且绑定在原型上，实例去访问正确，而原型上若：
         (访问)抛出错误：需要像属性一样使用getter和setter
         (调用)抛出错误：在该方法里面加个判断this: 如if this instanceOf PluginArray
@@ -55,30 +56,8 @@
 
 
 
-/*
-    document.cookie的获取和设置都比较特殊，所以特殊处理 
- */
-document.__defineGetter__("cookie", function () {
-    let list = [];
-    for (let key in catvm.memory.cookie_copy) {
-        list.push(`${key}=${catvm.memory.cookie_copy[key]}`);
-    }
-    return list.join("; ");
-});
-document.__defineSetter__("cookie", function (val) {
-    /* 传入的参数可能是多个cookie组成的字符串 */
-    let list = val.split(";");
-    for (let elem of list) {
-        let [key, value] = elem.trim().split("=");
-        catvm.memory.cookie_copy[key] = value;
-    }
-});
-
-
-
 //* 
 //---------------------------------------------------------------------------------
-debugger;
 // catvm.proxy(catvm.memory.htmlElements[tagName]());  //在Document.js中挂上代理
 window.chrome = catvm.proxy(window.chrome);
 window = catvm.proxy(window);

@@ -14,9 +14,12 @@ Object.defineProperties(Storage.prototype, {
 
 //-------------------------------------------------------------------
 //Storage.prototype.length = 0;
+Storage.prototype.__defineGetter__("length", function () {
+    return Object.keys(this).length;
+})
 
 Storage.prototype.getItem = function getItem(key) {
-    return this[key];
+    return this[key] || null;
 }; catvm.func_set_native(Storage.prototype.getItem);
 
 Storage.prototype.setItem = function setItem(key, value) {
@@ -41,10 +44,6 @@ Storage.prototype.key = function key(index) {
     return prop ? this[prop] : null;
 
 }; catvm.func_set_native(Storage.prototype.key);
-
-Storage.prototype.__defineGetter__("length", function () {
-    return Object.keys(this).length;
-})
 //-------------------------------------------------------------------
 
 

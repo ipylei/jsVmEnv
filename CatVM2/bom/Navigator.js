@@ -19,51 +19,68 @@ Object.defineProperties(Navigator.prototype, {
     }
 });
 
-//--------------------------------------------
+//----------------------------------------------------------------------------------
 /*
 只存放Navigator.prototype对象不能直接访问，但实例能直接访问的属性! 
 因为有的属性不准原型直接访问，却准实例访问。方法可能亦如此，但可以直接在里面判断this，而且可能还需要保护函数。 
 而属性不行，只能通过getter和setter即访问器属性的形式来判断this)
-
-数据属性正常设置
 */
 Navigator.totalProp = {
+    language: 'zh-CN',
     languages: ['zh-CN', 'zh'],
+    platform: 'Win32',
+
     vendor: 'Google Inc.',
-    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36',
+    doNotTrack: null,
+
+    // userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36',
+    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
 
     //plugins赋值
     plugins: catvm.memory.PluginArray._array,
     mimeTypes: catvm.memory.MimeTypeArray._array
 }
 
-
-// Navigator.prototype. = [];
-// Navigator.prototype.languages = ['zh-CN', 'zh'];
-// Navigator.prototype.userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36';
-//--------------------------------------------
-
-
-//挨个定义getter属性太麻烦了，在这里遍历时统一定义吧
+/* 原型对象 =》属性 */
+//一个个定义getter属性太麻烦了，在这里遍历时统一定义吧
 for (var prop in Navigator.totalProp) {
-    var tempValue = Navigator.totalProp[prop];
 
-    //第二个参数是一个闭包，外层的自执行函数return返回的其实还是一个匿名函数
     Navigator.prototype.__defineGetter__(prop, (function (param) {
         return function () {
-            if (this == Navigator.prototype) {
-                throw new TypeError("Illegal invocation");
+            // if (this == Navigator.prototype) {
+            if (this instanceof Navigator) {
+                return Navigator.totalProp[param];
             } else {
-                return param; //param就是传进来的tempValue
+                throw new TypeError("Illegal invocation");
             }
         };
-    })(tempValue)
-    
+    })(prop)
     );
 
+
+    /*     
+        Navigator.prototype.__defineSetter__(prop, function (newValue) {
+            console.log("----->", prop, newValue);  //执行时是取不到对应的prop的，需要使用一个闭包实现
+            Navigator.totalProp[prop] = newValue;
+        }); 
+    */
+
+
+    Navigator.prototype.__defineSetter__(prop, (function (param) {
+        return function (newValue) {
+            Navigator.totalProp[param] = newValue;
+        }
+    })(prop));
 }
 
+
+/* 原型对象 =》方法 */
+Navigator.prototype.javaEnabled = function javaEnabled() {
+    return false;
+}; catvm.func_set_native(Navigator.prototype.javaEnabled);
+//----------------------------------------------------------------------------------
+
+
+// 初始化含natigator对象
 navigator = new class navigator { };
 navigator.__proto__ = Navigator.prototype;
-
-

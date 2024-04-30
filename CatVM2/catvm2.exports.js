@@ -29,7 +29,7 @@ function getCode(config={}) {
 
 
     //===============================
-    code += "debugger;\r\n";
+    // code += "debugger;\r\n";
     return code;
 }
 

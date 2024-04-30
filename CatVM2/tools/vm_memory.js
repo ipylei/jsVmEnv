@@ -56,7 +56,7 @@ catvm.memory = {
     set_native(Function.prototype.toString, myFunction_toString_symbol, "function toString() { [native code] }");
 
     //导出函数到globalThis
-    this.catvm.func_set_native = (func) => {
+    catvm.func_set_native = (func) => {
         //在func.toString()时，会调用Function.prototype.toString方法(即重写后的myToString方法)， 
         //里面会判断有无该属性[myFunction_toString_symbol]，有就返回该属性[myFunction_toString_symbol]，没有就调用最原始的toString()方法。
         // set_native(func, myFunction_toString_symbol, `function ${myFunction_toString_symbol, func.name || ''}() { [native code] }`);
@@ -68,67 +68,56 @@ catvm.memory = {
 
 catvm.memory.cookie_copy = {};  //用来保存cookie值，以object格式展示，而不是String
 
+//游离的标签
+catvm.memory.elements = {};
+// catvm.memory.elements.head  //head标签
+// catvm.memory.elements.html  //html标签
+
 //标签名及其函数！ 如div: funciton(){}, 需要在bom和dom之前执行，才不得不选择添加在此处
 // 作用：绑定多类方法：catvm.memory.htmlElements[tag]，然后再Document.js中Document.prototype.createElement中使用(其实是HTMLDocument.js中使用)
-catvm.memory.htmlElements = {}; 
-
+catvm.memory.htmlElements = {};
+// catvm.memory.htmlElements.div = function(){}; //1.在这里实现；(优先)2:在div标签对应的构造函数文件中实现(HTMLDivElement)； 3.在users/u_init.js中实现
+// catvm.memory.htmlElements.a = function(){};   //1.在这里实现；(优先)2:在a标签对应的构造函数文件中实现(HTMLAnchorElement)；3.在users/u_init.js中实现
 
 
 catvm.memory.listeners = {}; //里面保存的是各个事件绑定的回调方法(addEventListener), 详情见EventTarget.js； 更好的构造可以参考MDN.
 // listeners = {"type1":[], "type2":[]}
 /* 参考：41->00:59:08
-绑定到这里而非某个标签上，主要是将方法聚合到一起供以后调用。如鼠标点击、滑动，这里就可以主动模拟执行了。 
+绑定到这里而非某个标签上，主要是将方法聚合到一起供以后调用。如鼠标点击、滑动，这里就可以主动模拟执行了。因为没办法做到鼠标点击、滑动，从而触发该事件。
     思考下改到某个标签上是否也可以呢? 应该是不行。
         因为添加事件的时刻不固定，是源js中添加的。
         事件触发时你不能控制某个标签元素触发，除非将标签元素也放到全局中来直接可以找到。
 */
 
 
-
 /*
-诸如location、screen、navigator等对象是作为window的属性存在，所以无所谓
-但其他临时对象，如用来存放navigator.mimeTypes的对象，这种游离的对象应该全部收集起来
-首先在memory上绑定一个对象，然后就可以把一些游离的对象，以及自己实现的相关属性、方法绑定到这个对象上，
+诸如location、screen、navigator等对象是作为window的属性存在，所以无所谓，
+但其他临时对象，如用来存放如下对象
+    navigator.plugins   => catvm.memory.PluginArray._array      (类型:PluginArray)
+    navigator.mimeTypes => catvm.memory.MimeTypeArray._array    (类型:MimeTypeArray)
+
+如果直接绑定到Navigator.prototype上的话，依赖关系比较复杂：
+    navigator.plugins   依赖 PluginArray.js
+    navigator.mimeTypes 依赖 MimeTypeArray.js
+
+    PluginArray.prototype[Symbol.iterator]         依赖  Navigator.js
+    MimeTypeArray.prototype[Symbol.iterator]       依赖  Navigator.js
+
+所以用一个中间变量来保存： 
+    catvm.memory.PluginArray._array
+    catvm.memory.MimeTypeArray._array
 */
-catvm.memory.Plugin = {}; // 游离的Plugin实例对象，主要是绑定方法catvm.memory.Plugin.$new
-catvm.memory.PluginArray = {}; // 游离的PluginArray实例对象，主要是绑定属性catvm.memory.PluginArray._array
+catvm.memory.Plugin = {           // 游离的Plugin实例对象，主要是绑定方法catvm.memory.Plugin.$new
+    // "$new": function () { }    
+};
 
-catvm.memory.MimeType = {}; // 游离的MimeType实例对象，主要是绑定方法catvm.memory.MimeType.$new
-catvm.memory.MimeTypeArray = {}; // 游离的MimeTypeArray实例对象，主要是绑定属性catvm.memory.MimeTypeArray
+catvm.memory.PluginArray = {      // 游离的PluginArray实例对象，主要是绑定属性catvm.memory.PluginArray._array
+    // "_array": {}               
+};
 
-// 实际在window.Plugin.prototype上
-// catvm.memory.Plugin.iterator = function values() {
-//     var that = this;
-//     return {
-//         next: function () {
-//             if (this.index == undefined) {
-//                 this.index = 0;
-//             }
-
-//             var currentValue;
-//             var temp = that[this.index];
-//             if (temp == undefined) {
-//                 currentValue = { value: temp, done: true };
-//             }
-//             else {
-//                 currentValue = { value: temp, done: false };
-//             }
-//             this.index++;
-//             return currentValue;
-//         }
-//     }
-// }; catvm.func_set_native(catvm.memory.Plugin.iterator);
-
-
-// 实际在window.PluginArray.prototype上
-// catvm.memory.PluginArray.iterator = function values() {
-//     debugger
-// };
-// catvm.func_set_native(catvm.memory.PluginArray.iterator);
-
-
-// 实际在window.MimeTypeArray.prototype上
-// catvm.memory.MimeTypeArray.iterator = function values() {
-//     debugger
-// };
-// catvm.func_set_native(catvm.memory.MimeTypeArray.iterator);
+catvm.memory.MimeType = {         // 游离的MimeType实例对象，主要是绑定方法catvm.memory.MimeType.$new
+    // "$new": function () { }    
+};
+catvm.memory.MimeTypeArray = {    // 游离的MimeTypeArray实例对象，主要是绑定属性catvm.memory.MimeTypeArray._array
+    // "_array": {}               
+};
