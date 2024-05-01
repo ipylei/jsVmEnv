@@ -1,4 +1,4 @@
-function Plugin() {
+Plugin = function Plugin() {
     //容易被检测到堆栈
     throw new TypeError("Illegal constructor");
 }; catvm.func_set_native(Plugin);
@@ -81,7 +81,7 @@ catvm.memory.Plugin.$new = function (data) {
 
                 //指定下标！0,1,2,...
                 plu[index] = mimeType;
-                
+
                 //添加根据名称访问方式(不可枚举的情况就变成浅色)
                 Object.defineProperty(plu, mimeType.type, {
                     value: mimeType,

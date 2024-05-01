@@ -1,4 +1,4 @@
-function HTMLDocument() {
+HTMLDocument = function HTMLDocument() {
     //容易被检测到堆栈
     throw new TypeError("Illegal constructor");
 }; catvm.func_set_native(HTMLDocument);
@@ -21,7 +21,7 @@ HTMLDocument.prototype.__proto__ = Document.prototype;
 document = new class document { };
 document.__proto__ = HTMLDocument.prototype;
 
-document.referrer =  "";
+document.referrer = "";
 
 
 /*
@@ -41,10 +41,18 @@ document.__defineGetter__("cookie", function () {
 document.__defineSetter__("cookie", function (val) {
     /* 传入的参数可能是多个cookie组成的字符串 */
     debugger;
-    let validstr = val.split(";")[0];
-    let [key, value] = validstr.trim().split("=");
-    catvm.memory.cookie_copy[key] = value;
 
+    if (val.indexOf("domain=") > 0 || val.indexOf("expires=") > 0) {
+        let validstr = val.split(";")[0];
+        let [key, value] = validstr.trim().split("=");
+        catvm.memory.cookie_copy[key] = value;
+    }
+
+    let validstr_list = val.split(";");
+    for (let validstr of validstr_list) {
+        let [key, value] = validstr.trim().split("=");
+        catvm.memory.cookie_copy[key] = value;
+    }
 });
 
 // TODO HTMLDocument -> Document -> Node -> EventTarget 

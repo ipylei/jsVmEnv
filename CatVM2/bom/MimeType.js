@@ -1,4 +1,4 @@
-function MimeType() {
+MimeType = function MimeType() {
     //容易被检测到堆栈
     throw new TypeError("Illegal constructor");
 }; catvm.func_set_native(MimeType);

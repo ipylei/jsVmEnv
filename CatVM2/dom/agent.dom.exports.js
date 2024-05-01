@@ -5,6 +5,8 @@ function getCode() {
 
     //先把HTMLElement系列加载完毕，然后才有相关方法供Document.js (createElement)中调用
     //(x)好像放后面也可以，毕竟是独立的。
+    code += fs.readFileSync(`${__dirname}/HTMLCollection.js`) + "\r\n";
+
     code += fs.readFileSync(`${__dirname}/Node.js`) + "\r\n";
     code += fs.readFileSync(`${__dirname}/Element.js`) + "\r\n";
     code += fs.readFileSync(`${__dirname}/HTMLElement.js`) + "\r\n";

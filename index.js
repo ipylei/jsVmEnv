@@ -1,12 +1,12 @@
 const fs = require('fs');
 const path = require("path");
-const ivm = require("is");
+const { VM, VMScript } = require('vm2');
 
 // 加载本地框架
 var catvm2 = require('./CatVM2/catvm2.exports.js');
 // 利用框架加载已补的环境代码
 var catvm2code = catvm2.getCode({
-    proxy: true,
+    proxy: false,
     stack: false
 });
 
@@ -51,7 +51,7 @@ const script = new VMScript(
 /* 创建一个vm对象，使用默认配置 */
 // const vm = new VM();
 /* 创建一个vm对象，使用自定义配置*/
-gloabl_obj = { _author: "ipylei", setInterval: setInterval, btoa: btoa, atob: atob};
+gloabl_obj = { _author: "ipylei", setTimeout: setTimeout, setInterval: setInterval, btoa: btoa, atob: atob };
 const vm = new VM({ sandbox: gloabl_obj });
 const my_exports = vm.run(script);
 

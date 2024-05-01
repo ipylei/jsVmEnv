@@ -1,4 +1,4 @@
-function EventTarget() {
+EventTarget = function EventTarget() {
 
 }; catvm.func_set_native(EventTarget);
 

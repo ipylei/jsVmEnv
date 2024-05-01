@@ -1,10 +1,10 @@
 /* head标签 */
-function HTMLHeadElement() {
+HTMLHeadElement = function HTMLHeadElement() {
     //容易被检测到堆栈
     throw new TypeError("Illegal constructor");
 }; catvm.func_set_native(HTMLHeadElement);
 
-Object.defineProperties(HTMLDivElement.prototype, {
+Object.defineProperties(HTMLHeadElement.prototype, {
     [Symbol.toStringTag]: {
         value: "HTMLHeadElement",
         configurable: true

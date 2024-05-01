@@ -1,6 +1,6 @@
 /* div标签 */
 
-function HTMLDivElement() {
+HTMLDivElement = function HTMLDivElement() {
     //容易被检测到堆栈
     throw new TypeError("Illegal constructor");
 }; catvm.func_set_native(HTMLDivElement);

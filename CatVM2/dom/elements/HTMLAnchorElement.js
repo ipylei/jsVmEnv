@@ -1,6 +1,6 @@
 /* a标签 */
 
-function HTMLAnchorElement() {
+HTMLAnchorElement = function HTMLAnchorElement() {
     //容易被检测到堆栈
     throw new TypeError("Illegal constructor");
 }; catvm.func_set_native(HTMLAnchorElement);

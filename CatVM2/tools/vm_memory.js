@@ -18,7 +18,7 @@ catvm.memory = {
 
 ;;;
 //加;防止前面没有分号导致匿名函数报错
-(() => {
+(function () {
     "use strict";
 
     const $toString = Function.toString;
@@ -63,7 +63,7 @@ catvm.memory = {
         set_native(func, myFunction_toString_symbol, `function ${func.name || ''}() { [native code] }`);
     }
 
-}).call();
+}).call(window);
 
 
 catvm.memory.cookie_copy = {};  //用来保存cookie值，以object格式展示，而不是String

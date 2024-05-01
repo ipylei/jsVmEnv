@@ -1,4 +1,4 @@
-function Window() {
+Window = function Window() {
     //容易被检测到堆栈
     throw new TypeError("Illegal constructor");
 
@@ -29,18 +29,21 @@ Object.defineProperties(Window.prototype, {
 //--------------------------------------------------------
 //补window额外的属性或方法
 window["outerHeight"] = 824;
-window["outerWidth"] =1536;
+window["outerWidth"] = 1536;
 // window["outerHeight"] = 1027;
 // window["outerWidth"] = 1707;
 
 window.open = function open() { debugger }; catvm.func_set_native(window.open);
-window.setTimeout = function setTimeout(func, delay) {
-    //其中func可能是一个方法 也可能是一段文本
-    typeof x == "function" ? func() : undefined;
-    typeof x == "string" ? eval(func) : undefined;
-    //生成uuid, 并保存到内存
-    return 1;
-}; catvm.func_set_native(window.setTimeout);
+// window.setTimeout = function setTimeout(func, delay) {
+//     //其中func可能是一个方法 也可能是一段文本
+//     if (typeof x == "string") {
+//         eval(func)
+//     } else {
+//         func()
+//     }
+//     //生成uuid, 并保存到内存
+//     return 1;
+// }; catvm.func_set_native(window.setTimeout);
 
 window.chrome = {
     app: {},
