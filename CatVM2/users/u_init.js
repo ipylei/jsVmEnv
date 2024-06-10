@@ -71,10 +71,5 @@ screen = catvm.proxy(screen);
 history = catvm.proxy(history);
 localStorage = catvm.proxy(localStorage);
 sessionStorage = catvm.proxy(sessionStorage);
-
-window.setInterval = function(func, timeout){
-    setTimeout(func, timeout);
-}; catvm.func_set_native(window.setInterval);
-debugger;
 //-----------------------------------------------------------------------------------
 //*/

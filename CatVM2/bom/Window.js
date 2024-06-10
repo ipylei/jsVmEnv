@@ -34,16 +34,24 @@ window["outerWidth"] = 1536;
 // window["outerWidth"] = 1707;
 
 window.open = function open() { debugger }; catvm.func_set_native(window.open);
-// window.setTimeout = function setTimeout(func, delay) {
-//     //其中func可能是一个方法 也可能是一段文本
-//     if (typeof x == "string") {
-//         eval(func)
-//     } else {
-//         func()
-//     }
-//     //生成uuid, 并保存到内存
-//     return 1;
-// }; catvm.func_set_native(window.setTimeout);
+window.setTimeout = function setTimeout(func, delay) {
+    console.log(">>>>>>>>> 注意: setTimeout被调用!", delay, func);
+
+    //其中func可能是一个方法 也可能是一段文本
+    if (typeof x == "string") {
+        eval(func)
+    } else {
+        func()
+    }
+    //生成uuid, 并保存到内存
+    return 1;
+}; catvm.func_set_native(window.setTimeout);
+
+window.setInterval = function(func, delay){
+    console.log(">>>>>>>>> 注意: setInterval被调用!", delay, func);
+    setTimeout(func, delay);
+    return 1;
+}; catvm.func_set_native(window.setInterval);
 
 window.chrome = {
     app: {},
