@@ -54,7 +54,7 @@ catvm.proxy = function (o) {
                 (new CatVMStack("delete-->")).printStack();
             }
             debugger;
-            return false;
+            return Reflect.deleteProperty(target, key);
         }
     })
 

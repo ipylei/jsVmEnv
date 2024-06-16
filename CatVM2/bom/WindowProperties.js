@@ -19,5 +19,5 @@
     //WindowProperties->EventTarget的原型链
     WindowProperties.prototype.__proto__ = EventTarget.prototype;
     Window.prototype.__proto__ = WindowProperties.prototype;
-}).call(this);
+}).call();
 //*/

@@ -68,4 +68,3 @@ window.DeviceMotionEvent = function DeviceMotionEvent() { debugger; }; catvm.fun
 //补完window的属性或方法后，再构建起window->Window的原型链
 window.__proto__ = Window.prototype;
 // Window.prototype.__proto__ = WindowProperties.prototype;  //放到WindowProperties.js中去补
-

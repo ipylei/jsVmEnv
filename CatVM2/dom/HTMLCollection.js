@@ -1,4 +1,3 @@
-
 HTMLCollection = function HTMLCollection() {
     //容易被检测到堆栈
     throw new TypeError("Illegal constructor");
@@ -10,3 +9,5 @@ Object.defineProperties(HTMLCollection.prototype, {
         configurable: true
     }
 });
+
+//在Document.js中有使用到

@@ -1,7 +1,14 @@
 debugger;
+debugger;
 
-window = self = global; //window比较特殊
-delete global; //删除global对象
+
+if (this.global) {
+    window = self = global; //window比较特殊
+    delete global; //删除global对象
+} else {
+    window = self = this;
+}
+
 
 var catvm = {};
 
@@ -66,15 +73,33 @@ catvm.memory = {
 }).call(window);
 
 
+
+var document;
+var screen;
+
+var navigator;
+var history;
+var location;
+
+var localStorage;
+var sessionStorage;
+
+
+
 catvm.memory.cookie_copy = {};  //用来保存cookie值，以object格式展示，而不是String
 
 //游离的标签
 catvm.memory.elements = {};
+catvm.memory.elements[Symbol.iterator] = function* () {
+    for (var element in this) {
+        yield this[element];
+    }
+}
 // catvm.memory.elements.head  //head标签
 // catvm.memory.elements.html  //html标签
 
 //标签名及其函数！ 如div: funciton(){}, 需要在bom和dom之前执行，才不得不选择添加在此处
-// 作用：绑定多类方法：catvm.memory.htmlElements[tag]，然后再Document.js中Document.prototype.createElement中使用(其实是HTMLDocument.js中使用)
+//作用：绑定多类方法：catvm.memory.htmlElements[tag]，然后再Document.js中Document.prototype.createElement中使用(其实是HTMLDocument.js中使用)
 catvm.memory.htmlElements = {};
 // catvm.memory.htmlElements.div = function(){}; //1.在这里实现；(优先)2:在div标签对应的构造函数文件中实现(HTMLDivElement)； 3.在users/u_init.js中实现
 // catvm.memory.htmlElements.a = function(){};   //1.在这里实现；(优先)2:在a标签对应的构造函数文件中实现(HTMLAnchorElement)；3.在users/u_init.js中实现

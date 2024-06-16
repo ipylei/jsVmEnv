@@ -15,7 +15,7 @@ HTMLDocument.prototype.referrer = location ? location.href : "";
 //--------------------------------------------
 HTMLDocument.__proto__ = Document;
 HTMLDocument.prototype.__proto__ = Document.prototype;
-
+//--------------------------------------------
 
 // 初始化document对象
 document = new class document { };
@@ -31,28 +31,27 @@ let catvm ={};
 catvm.memory = {};
 catvm.memory.cookie_copy = {};
  */
-document.__defineGetter__("cookie", function () {
-    let list = [];
-    for (let key in catvm.memory.cookie_copy) {
-        list.push(`${key}=${catvm.memory.cookie_copy[key]}`);
-    }
-    return list.join("; ");
-});
-document.__defineSetter__("cookie", function (val) {
-    /* 传入的参数可能是多个cookie组成的字符串 */
-    debugger;
+// document.__defineGetter__("cookie", function () {
+//     let list = [];
+//     for (let key in catvm.memory.cookie_copy) {
+//         list.push(`${key}=${catvm.memory.cookie_copy[key]}`);
+//     }
+//     return list.join("; ");
+// });
+// document.__defineSetter__("cookie", function (val) {
+//     /* 传入的参数可能是多个cookie组成的字符串 */
+//     debugger;
 
-    if (val.indexOf("domain=") > 0 || val.indexOf("expires=") > 0) {
-        let validstr = val.split(";")[0];
-        let [key, value] = validstr.trim().split("=");
-        catvm.memory.cookie_copy[key] = value;
-    }
+//     if (val.indexOf("domain=") > 0 || val.indexOf("expires=") > 0) {
+//         let validstr = val.split(";")[0];
+//         let [key, value] = validstr.trim().split("=");
+//         catvm.memory.cookie_copy[key] = value;
+//     }
 
-    let validstr_list = val.split(";");
-    for (let validstr of validstr_list) {
-        let [key, value] = validstr.trim().split("=");
-        catvm.memory.cookie_copy[key] = value;
-    }
-});
+//     let validstr_list = val.split(";");
+//     for (let validstr of validstr_list) {
+//         let [key, value] = validstr.trim().split("=");
+//         catvm.memory.cookie_copy[key] = value;
+//     }
+// });
 
-// TODO HTMLDocument -> Document -> Node -> EventTarget 

@@ -11,3 +11,4 @@ my_exports = {
     sayHi: function () { console.log("hello world"); }
 }
 document.cookie;
+window.is_checked.toString();

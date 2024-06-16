@@ -12,6 +12,11 @@ Object.defineProperties(Element.prototype, {
 
 
 //--------------------------------------------------------
+Element.prototype.localName = ""; //FORM
+Element.prototype.nodeName = "";  //FORM
+Element.prototype.tagName = "";   //FORM
+
+
 Element.prototype.__defineGetter__("innerHTML", function () {
     debugger;
     return this.innerHTML_copy ? this.innerHTML_copy : "";

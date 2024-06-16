@@ -14,43 +14,6 @@ Object.defineProperties(Document.prototype, {
 
 
 // -------------------------------------------------------------
-Object.defineProperty(Document.prototype, "head", {
-    get: function () {
-        if (this instanceof Document) {
-            return catvm.memory.elements.head;  //唯一
-        } else {
-            throw new TypeError("Illegal invocation");
-        }
-    }
-});
-
-Object.defineProperty(Document.prototype, "documentElement", {
-    get: function () {
-        if (this instanceof Document) {
-            return catvm.memory.elements.html;  //唯一
-        } else {
-            throw new TypeError("Illegal invocation");
-        }
-    }
-});
-
-Object.defineProperty(Document.prototype, "cookie", {
-    get: function () {
-        if (this instanceof Document) {
-            // return this.totalProp.cookie;
-            let list = [];
-            for (let key in catvm.memory.cookie_copy) {
-                list.push(`${key}=${catvm.memory.cookie_copy[key]}`);
-            }
-            return list.join("; ");
-        } else {
-            throw new TypeError("Illegal invocation");
-        }
-    }
-});
-
-
-
 //创建元素(标签)，根据名称去创建
 Document.prototype.createElement = function createElement(tagName) {
     var tagName = ("" + tagName).toLowerCase();
@@ -97,6 +60,90 @@ Document.prototype.getElementsByName = function getElementsByName(name) {
     return null;
 }; catvm.func_set_native(Document.prototype.getElementsByName);
 
+
+
+//html
+Object.defineProperty(Document.prototype, "documentElement", {
+    get: function () {
+        if (this instanceof Document) {
+            return catvm.memory.elements.html;  //唯一
+        } else {
+            throw new TypeError("Illegal invocation");
+        }
+    }
+});
+
+//document.head
+Object.defineProperty(Document.prototype, "head", {
+    get: function () {
+        if (this instanceof Document) {
+            return catvm.memory.elements.head;  //唯一
+        } else {
+            throw new TypeError("Illegal invocation");
+        }
+    }
+});
+
+
+//document.body
+Object.defineProperty(Document.prototype, "body", {
+    get: function () {
+        return catvm.memory.elements.body;
+    }
+})
+
+//document.all
+Object.defineProperty(Document.prototype, "all", {
+    get: function () {
+        var empty_list = [...catvm.memory.elements];
+        empty_list.__proto__ = HTMLAllCollection.prototype;
+        return empty_list;
+    }
+})
+
+
+/*
+    document.cookie的获取和设置都比较特殊，所以特殊处理 
+
+let catvm ={};
+catvm.memory = {};
+catvm.memory.cookie_copy = {};
+ */
+Object.defineProperty(Document.prototype, "cookie", {
+    get: function () {
+        if (!(this instanceof Document)) {
+            throw new TypeError("Illegal invocation");
+        }
+        
+        // return this.totalProp.cookie;
+        let list = [];
+        for (let key in catvm.memory.cookie_copy) {
+            list.push(`${key}=${catvm.memory.cookie_copy[key]}`);
+        }
+
+        var retval =  list.join("; ");
+        console.log("获取cookie成功!");
+        return retval;
+    },
+    set: function (val) {
+        if (!(this instanceof Document)) {
+            throw new TypeError("Illegal invocation");
+        }
+        console.log("设置cookie成功", val);
+
+        if (val.indexOf("domain=") > 0 || val.indexOf("expires=") > 0) {
+            let validstr = val.split(";")[0];
+            let [key, value] = validstr.trim().split("=");
+            catvm.memory.cookie_copy[key] = value;
+        }
+
+        let validstr_list = val.split(";");
+        for (let validstr of validstr_list) {
+            let [key, value] = validstr.trim().split("=");
+            catvm.memory.cookie_copy[key] = value;
+        }
+    }
+});
 // -------------------------------------------------------------
 
 
