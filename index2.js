@@ -1,26 +1,15 @@
 const fs = require('fs');
 const path = require("path");
-const { VM, VMScript } = require('vm2');
 const ivm = require('isolated-vm');
 let inspector = require('isolated-vm-inspector');
 
 // 加载本地框架
-var catvm2 = require('./CatVM2/catvm2.exports.js');
+var vmhelper = require('./VMHelper/vmhelper.exports.js');
 // 利用框架加载已补的环境代码
-var catvm2code = catvm2.getCode({
+var vmhelpercode = vmhelper.getCode({
     proxy: true,
     stack: false
 });
-
-
-/*
-const codefile = `${__dirname}/code2.js`;
-const script = fs.readFileSync(codefile, "utf-8");
-const vm = new VM();
-const my_exports = vm.run(script);
-console.log(res);
-//*/
-
 
 
 // 从网站扣下来的js
@@ -32,44 +21,37 @@ console.log(res);
 // const codefile = path.join(__dirname, "web_codes", "pdd_code.js");
 
 
-/* 简单补环境 */
-// const initfile = path.join(__dirname, "web_codes", "lesson13_init.js");
-// const codefile = path.join(__dirname, "web_codes", "lesson13_code.js");
+/* 课时13：简单补环境 */
+const initfile = path.join(__dirname, "web_codes", "lesson13_init.js");
+const codefile = path.join(__dirname, "web_codes", "lesson13_code.js");
 
-/* jsvmp入门 */
+/* 课时15：jsvmp入门 */
 // const initfile = path.join(__dirname, "web_codes", "lesson15_init.js");
 // const codefile = path.join(__dirname, "web_codes", "lesson15_code.js");
 
-/* 补环境入门 */
-const initfile = path.join(__dirname, "web_codes", "pdd_init.js");
-const codefile = path.join(__dirname, "web_codes", "lesson16_code.js");
+/* 课时16：补环境入门 */
+// const initfile = path.join(__dirname, "web_codes", "init.js");
+// const codefile = path.join(__dirname, "web_codes", "lesson16_code.js");
 
-// 导出
-const exportfile = path.join(__dirname, "web_codes", "pdd_export.js")
+/* 小红书 */
 // const codefile = path.join(__dirname, "web_codes", "xhs_code.js");
 
 
-/* const script = new VMScript(
-    catvm2code
-    + fs.readFileSync(initfile)
-    + fs.readFileSync(codefile)
-    + fs.readFileSync(exportfile),
+// const initfile = path.join(__dirname, "web_codes", "init.js");
+// const codefile = path.join(__dirname, "web_codes", "lesson11_code.js");
 
-    `${__dirname}/我正在调试的代.js码`); 
-*/
+
+// const initfile = path.join(__dirname, "web_codes", "init.js");
+// const codefile = path.join(__dirname, "web_codes", "lesson09_code.js");
+// 导出
+const exportfile = path.join(__dirname, "web_codes", "pdd_export.js")
+
 
 const isolate = new ivm.Isolate({ inspector: true }); // 内存限制为 128MB
-const script = isolate.compileScriptSync(catvm2code
+const script = isolate.compileScriptSync(vmhelpercode
     + fs.readFileSync(initfile)
     + fs.readFileSync(codefile)
     + fs.readFileSync(exportfile), { filename: "正在调试的代码.js" });
-
-/* 创建一个vm对象，使用默认配置 */
-// const vm = new VM();
-/* 创建一个vm对象，使用自定义配置*/
-// gloabl_obj = { _author: "ipylei", setTimeout: setTimeout, setInterval: setInterval, btoa: btoa, atob: atob };
-// const vm = new VM({ sandbox: gloabl_obj });
-// const my_exports = vm.run(script);
 
 // 创建一个新的隔离实例
 const context = isolate.createContextSync({ inspector: true });
@@ -79,24 +61,33 @@ jail.setSync('setTimeout', setTimeout);
 jail.setSync('setInterval', setInterval);
 jail.setSync('btoa', btoa);
 jail.setSync('atob', atob);
+jail.setSync('ilog', function (...args) {
+	console.log(...args);
+});
 
 
+var mode = 1;
+// 普通执行
+if (mode == 1) {
+    const my_exports = script.runSync(context);
+    console.log("导出对象获取成功!!!!");
+    console.log(my_exports);
+    console.log("ended......");
+}
+// debugger模式
+else {
+    inspector(isolate, {
+        port: 9222,
+        host: "127.0.0.1"
+    }, async () => {
+        let ret = await script.run(context);
+        console.log("=======>", ret);
+        debugger;
+    })
 
-// const my_exports = script.runSync(context);
-// console.log("导出对象获取成功!!!!");
-// // debugger;
-// console.log(my_exports);
-// console.log("ended......");
+}
 
 
-inspector(isolate, {
-    port: 9222,
-    host: "127.0.0.1"
-}, async () => {
-    let ret = await script.run(context);
-    console.log("=======>", ret);
-    debugger;
-})
 
 
 

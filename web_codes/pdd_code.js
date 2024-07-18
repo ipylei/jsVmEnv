@@ -6446,15 +6446,15 @@ var obj = {
                                 return t.slice(0, e)
                             }
                             )(10);
-                            S.data = catvm.memory.S.data;
-                            P.data = `http://yangkeduo.com/goods.html?goods_id=${catvm.memory.goods_id}&page_id=10014_${catvm.memory.referrer_time}_${page_id}&is_back=1`;
+                            S.data = vmcore.memory.S.data;
+                            P.data = `http://yangkeduo.com/goods.html?goods_id=${vmcore.memory.goods_id}&page_id=10014_${vmcore.memory.referrer_time}_${page_id}&is_back=1`;
                             I.data = {
                                 width: 512,
                                 height: 256
                             };
-                            T.data = catvm.memory.T.data;
-                            N.data = catvm.memory.N.data;
-                            G.data = catvm.memory.G.data;
+                            T.data = vmcore.memory.T.data;
+                            N.data = vmcore.memory.N.data;
+                            G.data = vmcore.memory.G.data;
                         }
                         // return N.data.pre_time_stamp;
 
@@ -6463,7 +6463,7 @@ var obj = {
                         return e
 
                         // console.log("__ default.getAntiToken方法返回值：", e);
-                        // return catvm.memory.N.data.pre_time_stamp;
+                        // return vmcore.memory.N.data.pre_time_stamp;
                     },
                     setImageClick: function(e) {
                         debugger ;// console.log("__ default.setImageClick方法被调用！");
@@ -6775,7 +6775,7 @@ function func2() {
 debugger ;console.log(func1.toString());
 console.log(func2.toString());
 
-catvm.func_set_native(func1);
+vmcore.func_set_native(func1);
 console.log(func1.toString());
 console.log(func2.toString());
 debugger ;

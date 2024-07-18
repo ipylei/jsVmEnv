@@ -15,6 +15,8 @@ document.body.appendChild = function (tag) {
 
 
 debugger;
+// throw new Error("hello world bad");
+
 form = document.createElement("form");
 form.id = "__yrxform__";
 form.action = "https://yuanrenxue.com";
@@ -22,6 +24,7 @@ document.body.appendChild(form);
 
 
 
+/* 1.form检测
 window.is_checked = [];
 if (window["__yrxform__"] !== form) {
     debugger; console.log("你被检测了1");
@@ -62,5 +65,33 @@ if (window["__yrxform__"] !== form) {
     window.is_checked.push(8);
 }
 window.is_checked.push(222);
-console.log(111)
+console.log(111); 
+//*/
 
+
+/* 2.this检测
+(function () {
+    debugger;
+    console.log(top == window);
+    console.log(top == parent);
+    console.log(window == this);
+    console.log(top.self.window == parent.self.parent)
+    console.log(top.self == window)
+    console.log(top.self.window == window.top.self)
+    console.log(self.window.top.frames == top.window.self);
+    console.log(self.window.top.self.frames.parent.top == top.window.self);
+    console.log(self.window.top.self.top == top.window.self.window);
+}).call()
+//*/
+
+
+
+
+//* 3.检测navigator 
+var dd=navigator.plugins[0]
+console.log(dd[0]==dd[0])
+console.log(navigator.plugins[0][0]==navigator.plugins[0][0])
+console.log(dd[0].enabledPlugin[0]==dd[0])
+console.log(navigator.plugins[0][0].enabledPlugin==dd)
+// console.log(navigator.plugins[0][0].enabledPlugin==dd[1].enabledPlugin)
+//*/

@@ -23,7 +23,7 @@
 
         (x)//跟上面没区别document.createElement()，只是这个方法是游离的而已，尽量不要污染全局空间。
         2)、若确实需要一个方法来动态构建对象，则自己实现一个方法，方法里面先创建一个空对象，该对象的__proto__指向构造方法的prototype, 最后返回该对象。
-                参照catvm.memory.Plugin.$new, 因为构造方法{Plugin}不能调用，所以就自己创建一个方法绑定到catvm.memory.Plugin上面去，
+                参照vmcore.memory.Plugin.$new, 因为构造方法{Plugin}不能调用，所以就自己创建一个方法绑定到vmcore.memory.Plugin上面去，
                 在方法里面创建一个对象，并将该对象的原型__proto__ = Plugin.prototype。
 
 
@@ -46,7 +46,7 @@
     *)vscode里用鼠标创建的断点也会在浏览器无环境联调生效，所以其实还是vscode在执行。
     
     *)Navigator.js中的navigator、Plugin.js、PluginArray.js、MimeType.js是沒有依赖关系(即先后顺序)的，
-        :就算有依赖关系也应该裁掉保证其独立性，可以绑定到内存对象上如：catvm.memory.PluginArray = {};
+        :就算有依赖关系也应该裁掉保证其独立性，可以绑定到内存对象上如：vmcore.memory.PluginArray = {};
         :其实例的关联关系是在u_plugins.js中实现的。
 
 

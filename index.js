@@ -3,10 +3,10 @@ const path = require("path");
 const { VM, VMScript } = require('vm2');
 
 // 加载本地框架
-var catvm2 = require('./CatVM2/catvm2.exports.js');
+var vmhelper = require('./VMHelper/vmhelper.exports.js');
 // 利用框架加载已补的环境代码
-var catvm2code = catvm2.getCode({
-    proxy: true,
+var vmhelpercode = vmhelper.getCode({
+    proxy: false,
     stack: false
 });
 
@@ -16,33 +16,34 @@ var catvm2code = catvm2.getCode({
 // const codefile = `${path.resolve('./')}\\code.js`;
 
 //初始化
-// const initfile = path.join(__dirname, "web_codes", "pdd_init.js");
-// const codefile = path.join(__dirname, "web_codes", "pdd_code.js");
+const initfile = path.join(__dirname, "web_codes", "pdd_init.js");
+const codefile = path.join(__dirname, "web_codes", "pdd_code.js");
 
 
-/* 简单补环境 */
+/* 课时13：简单补环境 */
 // const initfile = path.join(__dirname, "web_codes", "lesson13_init.js");
 // const codefile = path.join(__dirname, "web_codes", "lesson13_code.js");
 
-/* jsvmp入门 */
+/* 课时15：jsvmp入门 */
 // const initfile = path.join(__dirname, "web_codes", "lesson15_init.js");
 // const codefile = path.join(__dirname, "web_codes", "lesson15_code.js");
 
-/* 补环境入门 */
-const initfile = path.join(__dirname, "web_codes", "pdd_init.js");
+/* 课时16：补环境入门 */
+/* const initfile = path.join(__dirname, "web_codes", "pdd_init.js");
 const codefile = path.join(__dirname, "web_codes", "lesson16_code.js");
+ */
 
 // 导出
 const exportfile = path.join(__dirname, "web_codes", "pdd_export.js")
 // const codefile = path.join(__dirname, "web_codes", "xhs_code.js");
 
 
-// const total_code = catvm2code
-//     + fs.readFileSync(initfile)
-//     + fs.readFileSync(codefile)
-//     + fs.readFileSync(exportfile);
+const total_code = vmhelpercode
+    + fs.readFileSync(initfile)
+    + fs.readFileSync(codefile)
+    + fs.readFileSync(exportfile);
 
-const total_code = fs.readFileSync(codefile) + fs.readFileSync(exportfile);
+// const total_code = fs.readFileSync(codefile) + fs.readFileSync(exportfile);
 const script = new VMScript(total_code, `${__dirname}/我正在调试的代.js码`);
 
 
@@ -86,3 +87,6 @@ nodejs跟vm2框架环境有关联即能保持状态，
 pyexecjs跟node环境没关联，每次运行都是独立的!
 所以pyexecjs跟vm2框架环境也没法关联。
 */
+
+
+//vm2检测：VM2_INTERNAL_STATE_DO_NOT_USE_OR_PROGRAM_WILL_FAIL
