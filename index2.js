@@ -22,8 +22,8 @@ var vmhelpercode = vmhelper.getCode({
 
 
 /* 课时13：简单补环境 */
-const initfile = path.join(__dirname, "web_codes", "lesson13_init.js");
-const codefile = path.join(__dirname, "web_codes", "lesson13_code.js");
+// const initfile = path.join(__dirname, "web_codes", "lesson13_init.js");
+// const codefile = path.join(__dirname, "web_codes", "lesson13_code.js");
 
 /* 课时15：jsvmp入门 */
 // const initfile = path.join(__dirname, "web_codes", "lesson15_init.js");
@@ -37,8 +37,8 @@ const codefile = path.join(__dirname, "web_codes", "lesson13_code.js");
 // const codefile = path.join(__dirname, "web_codes", "xhs_code.js");
 
 
-// const initfile = path.join(__dirname, "web_codes", "init.js");
-// const codefile = path.join(__dirname, "web_codes", "lesson11_code.js");
+const initfile = path.join(__dirname, "web_codes", "init.js");
+const codefile = path.join(__dirname, "web_codes", "lesson11_code.js");
 
 
 // const initfile = path.join(__dirname, "web_codes", "init.js");

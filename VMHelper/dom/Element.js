@@ -22,10 +22,19 @@ Element.prototype.__defineGetter__("innerHTML", function () {
     return this.innerHTML_copy ? this.innerHTML_copy : "";
 
 });
-Element.prototype.__defineSetter__("innerHTML", function (html) {
+Element.prototype.__defineSetter__("innerHTML", function (val) {
     debugger;
-    this.innerHTML_copy = html;
-    this.firstChild = {};
+    debugger;
+    debugger;
+    this.innerHTML_copy = val;
+
+    if (val.indexOf('<a href') >= 0) {
+        var tag = vmcore.memory.htmlElements["a"]();
+        tag.href = "https://www.python-spider.com/challenge/11";
+        this.firstChild = tag;
+    } else {
+        this.firstChild = null;
+    }
 });
 //--------------------------------------------------------
 

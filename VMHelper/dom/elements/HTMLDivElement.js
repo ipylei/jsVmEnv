@@ -16,7 +16,6 @@ Object.defineProperties(HTMLDivElement.prototype, {
 HTMLDivElement.prototype.localName = "div"; 
 HTMLDivElement.prototype.nodeName = "DIV";  
 HTMLDivElement.prototype.tagName = "DIV";  
-
 HTMLDivElement.prototype.align = "";
 //--------------------------------------------------------
 HTMLDivElement.__proto__ = HTMLElement;
@@ -29,4 +28,3 @@ vmcore.memory.htmlElements["div"] = function () {
     element.__proto__ = HTMLDivElement.prototype;
     return element;
 }
-

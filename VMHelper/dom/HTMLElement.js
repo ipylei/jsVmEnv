@@ -13,6 +13,7 @@ Object.defineProperties(HTMLElement.prototype, {
 
 //------------------------------------------------------------
 HTMLElement.prototype.onwheel_ = null;
+
 Object.defineProperty(HTMLElement.prototype, "onwheel", {
     get: function () {
         if (this instanceof HTMLElement) {
@@ -21,9 +22,7 @@ Object.defineProperty(HTMLElement.prototype, "onwheel", {
             throw new TypeError("Illegal invocation");
         }
     }
-})
-
-
+});
 
 
 //--------------------------------------------------------

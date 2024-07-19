@@ -1,14 +1,14 @@
 
 ;;;
 // vm2.run()返回最后一个对象，所以最后的导出对象放在这里
-// for (var prop in vmcore.memory.listeners) {
-//     prop_listeners = vmcore.memory.listeners[prop];
-//     for (let listener of prop_listeners) {
-//         if (typeof listener == "function") {
-//             listener();
-//         }
-//     }
-// }
+for (var prop in vmcore.memory.listeners) {
+    prop_listeners = vmcore.memory.listeners[prop];
+    for (let listener of prop_listeners) {
+        if (typeof listener == "function") {
+            listener();
+        }
+    }
+}
 
 
 debugger;
