@@ -34,6 +34,9 @@ Object.defineProperties(XMLHttpRequest.prototype, {
 XMLHttpRequest.prototype.open = function (method, url, async, user, password) {
     this.method = method;
     this.url = url;
+
+    console.log("xhr open: ", url)
+
 }; vmcore.func_set_native(XMLHttpRequest.prototype.open);
 
 XMLHttpRequest.prototype.send = function (body) {
@@ -41,7 +44,7 @@ XMLHttpRequest.prototype.send = function (body) {
 }; vmcore.func_set_native(XMLHttpRequest.prototype.send);
 
 XMLHttpRequest.prototype.setRequestHeader = function (key, value) {
-    console.log(">>>>>>>>>>>>>>>>>>>>>>", key, value);
+    console.log("xhr setRequestHeader: ", key, value);
     this.header[key] = value;
 }; vmcore.func_set_native(XMLHttpRequest.prototype.setRequestHeader);
 

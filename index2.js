@@ -26,8 +26,8 @@ var vmhelpercode = vmhelper.getCode({
 // const codefile = path.join(__dirname, "web_codes", "lesson13_code.js");
 
 /* 课时15：jsvmp入门 */
-// const initfile = path.join(__dirname, "web_codes", "lesson15_init.js");
-// const codefile = path.join(__dirname, "web_codes", "lesson15_code.js");
+const initfile = path.join(__dirname, "web_codes", "lesson15_init.js");
+const codefile = path.join(__dirname, "web_codes", "lesson15_code.js");
 
 /* 课时16：补环境入门 */
 // const initfile = path.join(__dirname, "web_codes", "init.js");
@@ -37,8 +37,8 @@ var vmhelpercode = vmhelper.getCode({
 // const codefile = path.join(__dirname, "web_codes", "xhs_code.js");
 
 
-const initfile = path.join(__dirname, "web_codes", "init.js");
-const codefile = path.join(__dirname, "web_codes", "lesson11_code.js");
+// const initfile = path.join(__dirname, "web_codes", "init.js");
+// const codefile = path.join(__dirname, "web_codes", "lesson11_code.js");
 
 
 // const initfile = path.join(__dirname, "web_codes", "init.js");
@@ -61,12 +61,16 @@ jail.setSync('setTimeout', setTimeout);
 jail.setSync('setInterval', setInterval);
 jail.setSync('btoa', btoa);
 jail.setSync('atob', atob);
+
+//tips：不能被clone的对象，ilog打印会报错！
+//* 
 jail.setSync('ilog', function (...args) {
-	console.log(...args);
+    console.log(...args);
 });
+//*/
 
 
-var mode = 1;
+var mode = 0;
 // 普通执行
 if (mode == 1) {
     const my_exports = script.runSync(context);

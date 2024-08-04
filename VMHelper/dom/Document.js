@@ -129,7 +129,7 @@ Object.defineProperty(Document.prototype, "cookie", {
         return retval;
     },
     set: function (val) {
-        ilog("set cookie => ", val);
+        console.log("set cookie => ", val);
 
         if (!(this instanceof Document)) {
             throw new TypeError("Illegal invocation");

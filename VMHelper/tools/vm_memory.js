@@ -1,7 +1,6 @@
 debugger;
 debugger;
 
-
 if (this.global) {
     window = global; //window比较特殊
     delete global; //删除global对象
@@ -72,6 +71,23 @@ vmcore.memory = {
 
 }).call(window);
 
+
+old_console_log = console.log;
+console.log = function () {
+    const safeArgs = [...arguments].map(function (arg) {
+        try {
+            // 尝试将参数转换为字符串
+            return JSON.stringify(arg);
+        } catch (e) {
+            // 如果转换失败，返回参数本身
+            return String(arg);
+        }
+    });
+    ilog(...safeArgs);
+
+    return old_console_log.apply(this, arguments);
+};
+// vmcore.func_set_native(console.log);
 
 
 var document;

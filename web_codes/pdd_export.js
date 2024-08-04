@@ -28,6 +28,6 @@ my_exports = {
 // }
 // final_result +=  window.mmdd;
 
-ilog("document.cookie", document.cookie);
+console.log("document.cookie => ", document.cookie);
 document.cookie;
 // window.is_checked.toString();
