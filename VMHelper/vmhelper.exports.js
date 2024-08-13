@@ -1,6 +1,6 @@
 var fs = require('fs');
 //框架工具模块
-var vmtools = require('./tools/agent.tools.exports.js');
+var vmtools = require('./pivot/agent.tools.exports.js');
 
 //加载自己实现的BOM和DOM
 var vmbom = require('./bom/agent.bom.exports.js');
