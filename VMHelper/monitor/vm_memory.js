@@ -8,7 +8,7 @@ if (this.global) {
     window = this;
 }
 self = top = parent = frames = window;
-
+debugger;
 var vmcore = {};
 
 //框架运行内存
@@ -71,7 +71,12 @@ vmcore.memory = {
 
 }).call(window);
 
+var Developer = {
+    // log: console.log
+    log: ilog
+};
 
+/* hook console.log
 old_console_log = console.log;
 console.log = function () {
     const safeArgs = [...arguments].map(function (arg) {
@@ -86,26 +91,25 @@ console.log = function () {
     ilog(...safeArgs);
 
     return old_console_log.apply(this, arguments);
-};
+}; 
+*/
 // vmcore.func_set_native(console.log);
 
-
-var document;
-var screen;
-
-var navigator;
-var history;
-var location;
-
-var localStorage;
-var sessionStorage;
+// Error日志监控
+Error.prepareStackTrace = function (error, structuredStackTrace) {
+    Developer.log("有报错, 错误已打印，可以考虑在此处拦截\n", error)
+    // error.stack = error.stack.replace(/vm.js/g, "<anonymous>")
+    // Developer.log("有报错,已拦截，替换为\n", error.stack)
+    return error
+};
 
 
-
+vmcore.propertymanager = {};        //用来保存所有的访问器属性
 vmcore.memory.cookie_copy = {};  //用来保存cookie值，以object格式展示，而不是String
 
 //游离的标签
 vmcore.memory.elements = {};
+//生成器，在Document.js中document.all中使用到
 vmcore.memory.elements[Symbol.iterator] = function* () {
     for (var element in this) {
         yield this[element];
@@ -115,10 +119,10 @@ vmcore.memory.elements[Symbol.iterator] = function* () {
 // vmcore.memory.elements.html  //html标签
 
 //标签名及其函数！ 如div: funciton(){}, 需要在bom和dom之前执行，才不得不选择添加在此处
-//作用：绑定多类方法：vmcore.memory.htmlElements[tag]，然后再Document.js中Document.prototype.createElement中使用(其实是HTMLDocument.js中使用)
-vmcore.memory.htmlElements = {};
-// vmcore.memory.htmlElements.div = function(){}; //1.在这里实现；(优先)2:在div标签对应的构造函数文件中实现(HTMLDivElement)； 3.在users/u_init.js中实现
-// vmcore.memory.htmlElements.a = function(){};   //1.在这里实现；(优先)2:在a标签对应的构造函数文件中实现(HTMLAnchorElement)；3.在users/u_init.js中实现
+//作用：绑定多类方法：vmcore.memory.CreateElement[tag]，然后再Document.js中Document.prototype.createElement中使用(其实是HTMLDocument.js中使用)
+vmcore.memory.CreateElement = {};
+// vmcore.memory.CreateElement.div = function(){}; //1.在这里实现；(优先)2:在div标签对应的构造函数文件中实现(HTMLDivElement)； 3.在users/u_init.js中实现
+// vmcore.memory.CreateElement.a = function(){};   //1.在这里实现；(优先)2:在a标签对应的构造函数文件中实现(HTMLAnchorElement)；3.在users/u_init.js中实现
 
 
 vmcore.memory.listeners = {}; //里面保存的是各个事件绑定的回调方法(addEventListener), 详情见EventTarget.js； 更好的构造可以参考MDN.

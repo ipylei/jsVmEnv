@@ -13,6 +13,115 @@ Object.defineProperties(HTMLCanvasElement.prototype, {
 });
 
 
+HTMLCanvasElement.__proto__ = HTMLElement;
+HTMLCanvasElement.prototype.__proto__ = HTMLElement.prototype;
+
+vmcore.propertymanager.HTMLCanvasElement = {};
+//--------------------------------------------------------
+HTMLCanvasElement.prototype.localName = "canvas"; 
+HTMLCanvasElement.prototype.nodeName = "CANVAS";  
+HTMLCanvasElement.prototype.tagName = "CANVAS";  
+
+HTMLCanvasElement.prototype.getContext = function (mode) {
+    Developer.log("[dev] HTMLCanvasElement.prototype getContext 描述符 [value] [call] 被调用了");
+    debugger;
+    if (mode == "2d") {
+        let dconext = {};
+        dconext.__proto__ = CanvasRenderingContext2D.prototype;
+
+        dconext.direction = "ltr";
+        dconext.fillStyle = "#000000";
+        dconext.filter = "none";
+        dconext.font = "10px sans-serif";
+        dconext.fontKerning = "auto";
+        return dconext;
+    }
+
+    if (mode == "webgl") {
+        let gconext = {};
+        gconext.__proto__ = WebGLRenderingContext.prototype;
+        return gconext
+    }
+
+    if (mode == "webgl2") {
+        let g2conext = {};
+        g2conext.__proto__ = WebGL2RenderingContext.prototype;
+        return g2conext
+    }
+    return null;
+}
+
+vmcore.propertymanager.HTMLCanvasElement.width = 300;
+Object.defineProperty(HTMLCanvasElement.prototype, "width", {
+    get: function width() {
+        Developer.log("[dev] HTMLCanvasElement.prototype width 描述符 [get] 被调用了");
+        return vmcore.propertymanager.HTMLCanvasElement.width;
+    },
+    set: function width(val) {
+        Developer.log("[dev] HTMLCanvasElement.prototype width 描述符 [set] 被调用了");
+        vmcore.propertymanager.HTMLCanvasElement.width = val;
+    },
+    enumerable: true,
+    configurable: true,
+});
+
+vmcore.propertymanager.HTMLCanvasElement.height = 150;
+Object.defineProperty(HTMLCanvasElement.prototype, "height", {
+    get: function height() {
+        Developer.log("[dev] HTMLCanvasElement.prototype height 描述符 [get] 被调用了");
+        return vmcore.propertymanager.HTMLCanvasElement.height;
+    },
+    set: function height(val) {
+        Developer.log("[dev] HTMLCanvasElement.prototype height 描述符 [set] 被调用了");
+        vmcore.propertymanager.HTMLCanvasElement.height = val;
+    },
+    enumerable: true,
+    configurable: true,
+});
+
+Object.defineProperty(HTMLCanvasElement.prototype, "captureStream", {
+    value: function captureStream() {
+        Developer.log("[dev] HTMLCanvasElement.prototype captureStream 描述符 [value] [call] 被调用了");
+    },
+    writable: true,
+    enumerable: true,
+    configurable: true,
+});
+vmcore.func_set_native(HTMLCanvasElement.prototype.captureStream);
+
+Object.defineProperty(HTMLCanvasElement.prototype, "toBlob", {
+    value: function toBlob() {
+        Developer.log("[dev] HTMLCanvasElement.prototype toBlob 描述符 [value] [call] 被调用了");
+    },
+    writable: true,
+    enumerable: true,
+    configurable: true,
+});
+vmcore.func_set_native(HTMLCanvasElement.prototype.toBlob);
+
+Object.defineProperty(HTMLCanvasElement.prototype, "toDataURL", {
+    value: function toDataURL() {
+        Developer.log("[dev] HTMLCanvasElement.prototype toDataURL 描述符 [value] [call] 被调用了");
+    },
+    writable: true,
+    enumerable: true,
+    configurable: true,
+});
+vmcore.func_set_native(HTMLCanvasElement.prototype.toDataURL);
+
+Object.defineProperty(HTMLCanvasElement.prototype, "transferControlToOffscreen", {
+    value: function transferControlToOffscreen() {
+        Developer.log("[dev] HTMLCanvasElement.prototype transferControlToOffscreen 描述符 [value] [call] 被调用了");
+    },
+    writable: true,
+    enumerable: true,
+    configurable: true,
+});
+vmcore.func_set_native(HTMLCanvasElement.prototype.transferControlToOffscreen);
+
+//--------------------------------------------------------
+
+
 
 /* 
     2d
@@ -67,49 +176,8 @@ WebGL2RenderingContext.prototype.getExtension = function (name) {
 }
 
 
-//--------------------------------------------------------
-HTMLCanvasElement.prototype.localName = "canvas"; 
-HTMLCanvasElement.prototype.nodeName = "CANVAS";  
-HTMLCanvasElement.prototype.tagName = "CANVAS";  
-
-
-HTMLCanvasElement.prototype.getContext = function (mode) {
-    debugger;
-    if (mode == "2d") {
-        let dconext = {};
-        dconext.__proto__ = CanvasRenderingContext2D.prototype;
-
-        dconext.direction = "ltr";
-        dconext.fillStyle = "#000000";
-        dconext.filter = "none";
-        dconext.font = "10px sans-serif";
-        dconext.fontKerning = "auto";
-        return dconext;
-    }
-
-    if (mode == "webgl") {
-        let gconext = {};
-        gconext.__proto__ = WebGLRenderingContext.prototype;
-        return gconext
-    }
-
-    if (mode == "webgl2") {
-        let g2conext = {};
-        g2conext.__proto__ = WebGL2RenderingContext.prototype;
-        return g2conext
-    }
-    return null;
-}
-//--------------------------------------------------------
-
-HTMLCanvasElement.__proto__ = HTMLElement;
-HTMLCanvasElement.prototype.__proto__ = HTMLElement.prototype;
-
-
-
-
 // div标签创建方法(不需要new 直接调用就能创建了)
-vmcore.memory.htmlElements["canvas"] = function () {
+vmcore.memory.CreateElement["canvas"] = function () {
     var element = new class canvas { };
     element.__proto__ = HTMLCanvasElement.prototype;
     return element;

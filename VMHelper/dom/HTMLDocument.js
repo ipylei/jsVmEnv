@@ -10,15 +10,10 @@ Object.defineProperties(HTMLDocument.prototype, {
     }
 });
 
-//--------------------------------------------
-HTMLDocument.prototype.referrer = location ? location.href : "";
-//--------------------------------------------
 HTMLDocument.__proto__ = Document;
 HTMLDocument.prototype.__proto__ = Document.prototype;
-//--------------------------------------------
 
 // 初始化document对象
 document = new class document { };
 document.__proto__ = HTMLDocument.prototype;
-
-document.referrer = "";
+//--------------------------------------------

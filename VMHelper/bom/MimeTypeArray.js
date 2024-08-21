@@ -11,6 +11,14 @@ Object.defineProperties(MimeTypeArray.prototype, {
     },
 });
 
+//绑定到内存上，避免污染全局变量, 因为不是window的属性而是navigator的属性, 但是又不想在这里使用navigator
+//(在Navigator.js中绑定 mimeTypes: vmcore.memory.MimeTypeArray._array)
+vmcore.memory.MimeTypeArray._array = {};
+//注意：指定原型后的属性和方法就不能变了！ 除非自己再实现一个自己的
+vmcore.memory.MimeTypeArray._array.__proto__ = MimeTypeArray.prototype;
+
+
+//-------------------------------------------------------------
 MimeTypeArray.prototype[Symbol.iterator] = function* values() {
     debugger;
     for(let item in vmcore.memory.MimeTypeArray._array){
@@ -39,9 +47,3 @@ MimeTypeArray.prototype.namedItem = function namedItem(key) {
 
 
 
-//绑定到内存上，避免污染全局变量, 因为不是window的属性而是navigator的属性, 但是又不想在这里使用navigator
-//(在Navigator.js中绑定 mimeTypes: vmcore.memory.MimeTypeArray._array)
-vmcore.memory.MimeTypeArray._array = {};
-
-//注意：指定原型后的属性和方法就不能变了！ 除非自己再实现一个自己的
-vmcore.memory.MimeTypeArray._array.__proto__ = MimeTypeArray.prototype;

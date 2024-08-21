@@ -58,8 +58,8 @@
 
 //* 
 //---------------------------------------------------------------------------------
-// vmcore.proxy(vmcore.memory.htmlElements[tagName]());  //在Document.js中挂上代理
-window.chrome = vmcore.proxy(window.chrome);
+// vmcore.proxy(vmcore.memory.CreateElement[tagName]());  //在Document.js中挂上代理
+// window.chrome = vmcore.proxy(window.chrome);
 window = vmcore.proxy(window);
 // self = this = window; //会报错，不能代理
 
@@ -73,8 +73,11 @@ localStorage = vmcore.proxy(localStorage);
 sessionStorage = vmcore.proxy(sessionStorage);
 
 
+// 代理后需要重新设置self、top等
 if(vmcore.memory.config.proxy){
     self = top = parent = frames = window;
 }
+
+debugger;
 //-----------------------------------------------------------------------------------
 //*/

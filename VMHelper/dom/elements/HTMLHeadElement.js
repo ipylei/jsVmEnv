@@ -11,12 +11,6 @@ Object.defineProperties(HTMLHeadElement.prototype, {
     }
 });
 
-
-HTMLHeadElement.prototype.localName = "head"; 
-HTMLHeadElement.prototype.nodeName = "HEAD";  
-HTMLHeadElement.prototype.tagName = "HEAD";  
-
-
 HTMLHeadElement.__proto__ = HTMLElement;
 HTMLHeadElement.prototype.__proto__ = HTMLElement.prototype;
 
@@ -24,3 +18,10 @@ HTMLHeadElement.prototype.__proto__ = HTMLElement.prototype;
 // 初始化head标签
 vmcore.memory.elements.head = new class head { };
 vmcore.memory.elements.head.__proto__ = HTMLHeadElement.prototype;
+//----------------------------------------------------
+
+HTMLHeadElement.prototype.localName = "head"; 
+HTMLHeadElement.prototype.nodeName = "HEAD";  
+HTMLHeadElement.prototype.tagName = "HEAD";  
+
+

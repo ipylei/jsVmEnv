@@ -11,6 +11,15 @@ Object.defineProperties(PluginArray.prototype, {
     },
 });
 
+//绑定到内存上，避免污染全局变量, 因为_plugins不是window的属性而是navigator的属性，且又不想在这里使用navigator
+//(在Navigator.js中绑定 mimeTypes: vmcore.memory.PluginArray._array)
+vmcore.memory.PluginArray._array = {};
+//注意：指定原型后的属性和方法就不能变了！ 除非自己再实现一个自己的
+vmcore.memory.PluginArray._array.__proto__ = PluginArray.prototype;
+
+
+
+//------------------------------------------------------------------
 PluginArray.prototype.__defineGetter__("length", function(){
 /*     if(this == PluginArray.prototype){
         throw new TypeError("Illegal invocation");
@@ -56,9 +65,3 @@ PluginArray.prototype.refresh = function refresh() {
 
 
 
-//绑定到内存上，避免污染全局变量, 因为_plugins不是window的属性而是navigator的属性，且又不想在这里使用navigator
-//(在Navigator.js中绑定 mimeTypes: vmcore.memory.PluginArray._array)
-vmcore.memory.PluginArray._array = {};
-
-//注意：指定原型后的属性和方法就不能变了！ 除非自己再实现一个自己的
-vmcore.memory.PluginArray._array.__proto__ = PluginArray.prototype;

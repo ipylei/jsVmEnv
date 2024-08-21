@@ -26,6 +26,8 @@ function getCode() {
     code += fs.readFileSync(`${__dirname}/elements/HTMLScriptElement.js`) + "\r\n";   //script标签
     code += fs.readFileSync(`${__dirname}/elements/HTMLCanvasElement.js`) + "\r\n";   //canvas标签
     code += fs.readFileSync(`${__dirname}/elements/HTMLFormElement.js`) + "\r\n";     //form标签
+    code += fs.readFileSync(`${__dirname}/elements/HTMLImageElement.js`) + "\r\n";    //img标签
+    code += fs.readFileSync(`${__dirname}/elements/HTMLMetaElement.js`) + "\r\n";     //meta标签
     return code;
 }
 

@@ -10,11 +10,13 @@ Object.defineProperties(History.prototype, {
     }
 });
 
+history = new class history { };
+history.__proto__ = History.prototype;
+
+
 //--------------------------------------------------------
 History.prototype.back = function back() { debugger; }; vmcore.func_set_native(History.prototype.back);
 //--------------------------------------------------------
 
-history = new class history { };
-history.__proto__ = History.prototype;
 
 

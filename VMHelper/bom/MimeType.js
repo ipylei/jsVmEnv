@@ -10,16 +10,6 @@ Object.defineProperties(MimeType.prototype, {
     }
 });
 
-
-//--------------------------------------------
-MimeType.prototype.description = "";
-MimeType.prototype.suffixes = "";
-MimeType.prototype.type = "";
-MimeType.prototype.enabledPlugin = null;
-//--------------------------------------------
-
-
-
 //在Plugin.js中vmcore.memory.Plugin.$new中调用
 vmcore.memory.MimeType.$new = function (data, initPlugin) {
     /*
@@ -37,5 +27,17 @@ vmcore.memory.MimeType.$new = function (data, initPlugin) {
     mimetype.__proto__ = MimeType.prototype;
     return mimetype;
 };
+
+
+
+
+//--------------------------------------------
+MimeType.prototype.description = "";
+MimeType.prototype.suffixes = "";
+MimeType.prototype.type = "";
+MimeType.prototype.enabledPlugin = null;
+//--------------------------------------------
+
+
 
 

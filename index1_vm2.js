@@ -10,44 +10,20 @@ var vmhelpercode = vmhelper.getCode({
     stack: false
 });
 
-
-// 从网站扣下来的js
-// const codefile = `${__dirname}/code.js`
-// const codefile = `${path.resolve('./')}\\code.js`;
-
-//初始化
-const initfile = path.join(__dirname, "web_codes", "pdd_init.js");
-const codefile = path.join(__dirname, "web_codes", "pdd_code.js");
+// const initfile = path.join(__dirname, "web_codes", "1_init.js");
+// const codefile = path.join(__dirname, "web_codes", "2_code.js");
+// const exportfile = path.join(__dirname, "web_codes", "3_export.js");
 
 
-/* 课时13：简单补环境 */
-// const initfile = path.join(__dirname, "web_codes", "lesson13_init.js");
-// const codefile = path.join(__dirname, "web_codes", "lesson13_code.js");
-
-/* 课时15：jsvmp入门 */
-// const initfile = path.join(__dirname, "web_codes", "lesson15_init.js");
-// const codefile = path.join(__dirname, "web_codes", "lesson15_code.js");
-
-/* 课时16：补环境入门 */
-/* const initfile = path.join(__dirname, "web_codes", "pdd_init.js");
-const codefile = path.join(__dirname, "web_codes", "lesson16_code.js");
- */
-
-// 导出
-const exportfile = path.join(__dirname, "web_codes", "pdd_export.js")
-// const codefile = path.join(__dirname, "web_codes", "xhs_code.js");
+const initfile = path.join(__dirname, "web_codes/lesson24", "lesson24_init.js");
+const codefile = path.join(__dirname, "web_codes/lesson24", "lesson24_code.js");
+const exportfile = path.join(__dirname, "web_codes/lesson24", "lesson24_export.js");
 
 
-const total_code = vmhelpercode
+var total_code = vmhelpercode
     + fs.readFileSync(initfile)
     + fs.readFileSync(codefile)
     + fs.readFileSync(exportfile);
-
-// const total_code = fs.readFileSync(codefile) + fs.readFileSync(exportfile);
-const script = new VMScript(total_code, `${__dirname}/我正在调试的代.js码`);
-
-
-
 
 /* 创建一个vm对象，使用默认配置 */
 // const vm = new VM();
@@ -55,17 +31,23 @@ const script = new VMScript(total_code, `${__dirname}/我正在调试的代.js�
 const vm = new VM({
     sandbox: {
         _author: "ipylei",
+        ilog: console.log,
+
         setTimeout: setTimeout,
-        setInterval: setInterval,
-        btoa: btoa,
-        atob: atob
+        setInterval: setTimeout,
+        // btoa: btoa,
+        // atob: atob,
+        
     }
 });
-const my_exports = vm.run(script);
 
-console.log("导出对象获取成功!!!!");
-debugger;
-console.log(my_exports);
+// const script = new VMScript(total_code, `<anonymous>`);
+// const my_exports = vm.run(script);
+// const my_exports = vm.run(total_code);
+
+total_code = `try{${total_code};debugger}catch(e){debugger;}; document.cookie`;
+const my_exports = vm.run(total_code);
+console.log("导出对象获取成功!!!!", my_exports);
 console.log("ended......");
 
 

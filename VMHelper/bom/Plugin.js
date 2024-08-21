@@ -16,51 +16,6 @@ Object.defineProperties(Plugin.prototype, {
     } */
 });
 
-//--------------------------------------------
-Plugin.prototype[Symbol.iterator] = function* values() {
-    debugger;
-
-    var that = this;
-    return {
-        next: function () {
-            if (this.index == undefined) {
-                this.index = 0;
-            }
-
-            var currentValue;
-            var temp = that[this.index];
-            if (temp == undefined) {
-                currentValue = { value: temp, done: true };
-            }
-            else {
-                currentValue = { value: temp, done: false };
-            }
-            this.index++;
-            return currentValue;
-        }
-    }
-}; vmcore.func_set_native(Plugin.prototype[Symbol.iterator]);
-
-
-Plugin.prototype.description = "";
-Plugin.prototype.filename = "";
-Plugin.prototype.name = "";
-Plugin.prototype.length = 0;
-
-// 根据下标获取MimeType
-Plugin.prototype.item = function item(index) {
-    return this[index];
-}; vmcore.func_set_native(Plugin.prototype.item);
-// 根据名称获取MimeType
-Plugin.prototype.namedItem = function namedItem(key) {
-    return this[key];
-}; vmcore.func_set_native(Plugin.prototype.namedItem);
-
-
-
-//--------------------------------------------
-
-
 //根据一个文本，创建一个Plugin实例，然后用户就可以手动创建并加入到navigator.plugins数组中了
 vmcore.memory.Plugin.$new = function (data) {
     var plu = {};
@@ -114,5 +69,49 @@ vmcore.memory.Plugin.$new = function (data) {
     return plu;
 };
 
+
+
+//--------------------------------------------
+Plugin.prototype[Symbol.iterator] = function* values() {
+    debugger;
+
+    var that = this;
+    return {
+        next: function () {
+            if (this.index == undefined) {
+                this.index = 0;
+            }
+
+            var currentValue;
+            var temp = that[this.index];
+            if (temp == undefined) {
+                currentValue = { value: temp, done: true };
+            }
+            else {
+                currentValue = { value: temp, done: false };
+            }
+            this.index++;
+            return currentValue;
+        }
+    }
+}; vmcore.func_set_native(Plugin.prototype[Symbol.iterator]);
+
+Plugin.prototype.description = "";
+Plugin.prototype.filename = "";
+Plugin.prototype.name = "";
+Plugin.prototype.length = 0;
+
+// 根据下标获取MimeType
+Plugin.prototype.item = function item(index) {
+    return this[index];
+}; vmcore.func_set_native(Plugin.prototype.item);
+// 根据名称获取MimeType
+Plugin.prototype.namedItem = function namedItem(key) {
+    return this[key];
+}; vmcore.func_set_native(Plugin.prototype.namedItem);
+
+
+
+//--------------------------------------------
 
 
