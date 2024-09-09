@@ -62,6 +62,12 @@
 } */
 
 
+/* 
+obj: 用来枚举属性的对象
+obj_text: 文本
+instance: 用来获取属性值的对象
+special_attr: 指定某个属性
+ */
 function extract_protype2(obj, obj_text, instance, special_attr) {
     let output_jscode = "";
     let tail_text = "";
@@ -74,7 +80,7 @@ function extract_protype2(obj, obj_text, instance, special_attr) {
             continue;
         }
 
-        if(special_attr && _obj_attribute != special_attr){
+        if (special_attr && _obj_attribute != special_attr) {
             continue;
         }
 

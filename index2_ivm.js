@@ -42,9 +42,9 @@ var vmhelpercode = vmhelper.getCode({
 // const codefile = path.join(__dirname, "web_codes", "lesson23_code.js");
 
 /* lesson24 */
-const initfile = path.join(__dirname, "web_codes", "lesson24_init.js");
-const codefile = path.join(__dirname, "web_codes", "lesson24_code.js");
-const exportfile = path.join(__dirname, "web_codes", "lesson24_export.js");
+const initfile = path.join(__dirname, "web_codes", "/lesson24/lesson24_init.js");
+const codefile = path.join(__dirname, "web_codes", "/lesson24/lesson24_code.js");
+const exportfile = path.join(__dirname, "web_codes", "/lesson24/lesson24_export.js");
 
 //pdd
 // const initfile = path.join(__dirname, "web_codes", "pdd_init.js");
@@ -88,7 +88,7 @@ jail.setSync('ilog', function (...args) {
 //*/
 
 
-var mode = 1;
+var mode = 0;
 // 普通执行
 if (mode == 1) {
     const my_exports = script.runSync(context);
