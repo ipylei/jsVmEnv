@@ -3,3 +3,5 @@
 node_modules/
 test/
 samples/
+index.js
+README.txt
