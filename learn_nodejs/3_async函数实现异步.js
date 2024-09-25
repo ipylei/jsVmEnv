@@ -24,7 +24,7 @@ const readFile = function (fileName) {
 // co(gen)
 
 
-//现在第2-3部可以替换为下面
+//现在第2-3步可以替换为下面
 const asyncReadFile = async function () {
     var r1 = await readFile(`${__dirname}/copied.txt`);
     console.log(r1.toString());
