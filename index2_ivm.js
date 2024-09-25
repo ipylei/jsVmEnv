@@ -57,7 +57,7 @@ jail.setSync('ilog', function (...args) {
 //*/
 
 
-var mode = 0;
+var mode = 1;
 // 普通执行
 if (mode == 1) {
     const my_exports = script.runSync(context);

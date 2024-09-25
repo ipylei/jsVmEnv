@@ -10,9 +10,9 @@ var vmhelpercode = vmhelper.getCode({
     stack: false
 });
 
-// const initfile = path.join(__dirname, "web_codes", "1_init.js");
-// const codefile = path.join(__dirname, "web_codes", "2_code.js");
-// const exportfile = path.join(__dirname, "web_codes", "3_export.js");
+const initfile = path.join(__dirname, "web_codes", "1_init.js");
+const codefile = path.join(__dirname, "web_codes", "2_code.js");
+const exportfile = path.join(__dirname, "web_codes", "3_export.js");
 
 var total_code = vmhelpercode
     + fs.readFileSync(initfile)
