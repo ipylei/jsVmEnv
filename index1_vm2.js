@@ -25,6 +25,8 @@ var total_code = vmhelpercode
 const vm = new VM({
     sandbox: {
         _author: "ipylei",
+        env: "vm2",
+        
         ilog: console.log,
 
         setTimeout: setTimeout,
