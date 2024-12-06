@@ -21,7 +21,7 @@ vmcore.propertymanager.Document = {};
 Object.defineProperty(Document.prototype, "documentElement", {
     get: function () {
         Developer.log("[dev] Document.prototype documentElement 描述符 get 被调用了");
-        
+
         //lesson24特殊处理
         // if(location.href.indexOf("python-spider.com") >=0){
         //     Developer.log("documentElement >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
@@ -85,6 +85,7 @@ Object.defineProperty(Document.prototype, "all", {
     enumerable: true,
     set: undefined,
     get: function () {
+        // debugger;
         Developer.log("[dev] Document.prototype all 描述符 get 被调用了");
 
         var empty_list = [...vmcore.memory.elements];
@@ -130,20 +131,23 @@ Object.defineProperty(Document.prototype, "cookie", {
         }
         console.log("设置cookie成功", val);
 
-        let validstr = val.split(";")[0];
-        let [key, value] = validstr.trim().split("=");
-        vmcore.memory.cookie_copy[key] = value;
+        // let validstr = val.split(";")[0];
+        // let [key, value] = validstr.trim().split("=");
+        // vmcore.memory.cookie_copy[key] = value;
 
-        // if (val.indexOf("domain=") > 0 || val.indexOf("expires=") > 0) {
-        //     let validstr = val.split(";")[0];
-        //     let [key, value] = validstr.trim().split("=");
-        //     vmcore.memory.cookie_copy[key] = value;
-        // }
-        // let validstr_list = val.split(";");
-        // for (let validstr of validstr_list) {
-        //     let [key, value] = validstr.trim().split("=");
-        //     vmcore.memory.cookie_copy[key] = value;
-        // }
+        // 如果包含 "domain="或"expires="，说明是设置单个cookie
+        if (val.indexOf("domain=") > 0 || val.indexOf("expires=") > 0) {
+            let validstr = val.split(";")[0];
+            let [key, value] = validstr.trim().split("=");
+            vmcore.memory.cookie_copy[key] = value;
+        }
+        else {
+            let validstr_list = val.split(";");
+            for (let validstr of validstr_list) {
+                let [key, value] = validstr.trim().split("=");
+                vmcore.memory.cookie_copy[key] = value;
+            }
+        }
     }
 });
 

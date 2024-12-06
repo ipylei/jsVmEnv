@@ -2,7 +2,7 @@ class VMStack extends Error {
     constructor(message) {
         super(message);
         this.name = "VMStack";
-        this.stack = this.stack.split("\n").slice(0, 5).join("\n");
+        // this.stack = this.stack.split("\n").slice(0, 5).join("\n");
     }
     printStack() {
         console.log("%c" + this.stack, "color:#0000ff");

@@ -9,4 +9,6 @@ debugger;
 // ilog(">>>>>>>>>", window.flag);
 // setTimeout("window.flag=99999;ilog('~~~~~~~~~~~~~~~xxxxxxx')", 5000);
 
-let task2 =setTimeout(function(){ilog("task2 setTimeout 6000",  window.flag)}, 6000)
+let task2 =setTimeout(function(){ilog("task2 setTimeout 6000",  window.flag)}, 6000);
+
+;;;;;;

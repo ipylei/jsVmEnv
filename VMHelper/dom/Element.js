@@ -1040,11 +1040,17 @@ Object.defineProperty(Element.prototype, "lastElementChild", {
     configurable: true,
 });
 
-vmcore.propertymanager.Element.childElementCount = undefined;
+vmcore.propertymanager.Element.childElementCount = 58;
 Object.defineProperty(Element.prototype, "childElementCount", {
     get: function childElementCount() {
         Developer.log("[dev] Element.prototype childElementCount 描述符 get 被调用了");
-        return vmcore.propertymanager.Element.childElementCount;
+        if (this === vmcore.memory.elements.head) {
+            return 58;
+        } else if (this === vmcore.memory.elements.body) {
+            return 8;
+        }else{
+            return vmcore.propertymanager.Element.childElementCount;
+        }
     },
     set: undefined,
     enumerable: true,
@@ -1167,10 +1173,10 @@ Object.defineProperty(Element.prototype, "getAttribute", {
     value: function getAttribute(name) {
         Developer.log("[dev] Element.prototype getAttribute 描述符 value 被调用了", "atrr: ", name, "this: ", this.constructor.name);
 
-        if(this.constructor.name == "HTMLScriptElement" || this.localName == "script"){
+        if (this.constructor.name == "HTMLScriptElement" || this.localName == "script") {
             return "m";
         }
-        else if (this.markname && this.markname.indexOf("meta") > -1){
+        else if (this.markname && this.markname.indexOf("meta") > -1) {
             return "m";
         }
 

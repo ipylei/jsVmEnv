@@ -122,7 +122,7 @@ vmcore.propertymanager.Navigator.DataFuncAttributes = [
 for (var prop in vmcore.propertymanager.Navigator.AccessorAttributes) {
     Object.defineProperty(Navigator.prototype, prop, (function (param) {
         return {
-            get: function prop() {
+            get: function () {
                 Developer.log(`[dev] Navigator.prototype ${param} 描述符 get 被调用了`);
                 if (this instanceof Navigator) {
                     return vmcore.propertymanager.Navigator.AccessorAttributes[param];
@@ -130,7 +130,17 @@ for (var prop in vmcore.propertymanager.Navigator.AccessorAttributes) {
                     throw new TypeError("Illegal invocation");
                 }
             },
-            set: undefined,
+
+            set: function (val) {
+                Developer.log(`[dev] Navigator.prototype ${param} 描述符 set 被调用了: value:${val}`);
+                if (this instanceof Navigator) {
+                    vmcore.propertymanager.Navigator.AccessorAttributes[param] = val;
+                } else {
+                    throw new TypeError("Illegal invocation");
+                }
+            },
+
+            // set: undefined,
             enumerable: true,
             configurable: true,
         }

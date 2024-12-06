@@ -6,7 +6,7 @@ var vmtools = require('./monitor/agent.tools.exports.js');
 var vmbom = require('./bom/agent.bom.exports.js');
 var vmdom = require('./dom/agent.dom.exports.js');
 
-var vmusers = require('./users/agent.users.exports.js');
+var vminit = require('./init/agent.init.exports.js');
 
 function getCode(config={}) {
     var code = "";
@@ -24,8 +24,8 @@ function getCode(config={}) {
     //加载DOM环境
     code += vmdom.getCode() + "\r\n";
 
-    //加载用户自定义的代码
-    code += vmusers.getCode() + "\r\n";
+    //加载配置代码
+    code += vminit.getCode() + "\r\n";
 
 
     //===============================

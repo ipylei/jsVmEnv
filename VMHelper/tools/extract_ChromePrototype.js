@@ -1,6 +1,6 @@
-/* function extract_protype(obj, obj_text) {
+/* function extract_prototype(obj, target_text) {
     // let obj = Func.prototype;
-    // let obj_text = `${name}.prototype`;
+    // let target_text = `${name}.prototype`;
     // let name = Func.name || _name;
 
     let output_jscode = "";
@@ -25,7 +25,7 @@
 
             //get、set以及value为方法的情况
             if (typeof Descriptors_detail === "function") {
-                Descriptors_text += `function ${_obj_attribute}(){\nDeveloper.log("[dev] ${obj_text} ${_obj_attribute} 描述符 ${_descriptor} 被调用了");\n}`;  // screen.__proto__ availWidth 描述符 get 被调用了
+                Descriptors_text += `function ${_obj_attribute}(){\nDeveloper.log("[dev] ${target_text} ${_obj_attribute} 描述符 ${_descriptor} 被调用了");\n}`;  // screen.__proto__ availWidth 描述符 get 被调用了
                 // {set:function(){console.log()}
                 Descriptors_text += ",\n";
 
@@ -45,11 +45,11 @@
 
         Descriptors_text += "}";
         // 设置描述符
-        output_jscode += `Object.defineProperty(${obj_text}, "${_obj_attribute}", ${Descriptors_text});`;
+        output_jscode += `Object.defineProperty(${target_text}, "${_obj_attribute}", ${Descriptors_text});`;
 
         if (is_method) {
-            // tail_text += `vmcore.func_set_native(${obj_text}.${_obj_attribute});\n`;
-            output_jscode += `\nvmcore.func_set_native(${obj_text}.${_obj_attribute});`;
+            // tail_text += `vmcore.func_set_native(${target_text}.${_obj_attribute});\n`;
+            output_jscode += `\nvmcore.func_set_native(${target_text}.${_obj_attribute});`;
         }
         output_jscode += "\n\n";
     }
@@ -63,16 +63,16 @@
 
 
 /* 
-obj: 用来枚举属性的对象
-obj_text: 文本
+target: 用来枚举属性的对象
+target_text: 文本
 instance: 用来获取属性值的对象
 special_attr: 指定某个属性
  */
-function extract_protype2(obj, obj_text, instance, special_attr) {
+function extract_prototype2(target, target_text, instance, special_attr) {
     let output_jscode = "";
     let tail_text = "";
 
-    let all_PropertyDescriptors = Object.getOwnPropertyDescriptors(obj);
+    let all_PropertyDescriptors = Object.getOwnPropertyDescriptors(target);
 
     //遍历属性
     for (let _obj_attribute in all_PropertyDescriptors) {
@@ -118,13 +118,13 @@ function extract_protype2(obj, obj_text, instance, special_attr) {
                     val = _val;
                 }
             }
-            prefix = `vmcore.propertymanager.${obj_text.split(".")[0]}.${_obj_attribute} = ${val};\n`;
+            prefix = `vmcore.propertymanager.${target_text.split(".")[0]}.${_obj_attribute} = ${val};\n`;
         }
 
         // 数据属性专属后缀
         let suffix = "";
         if (isDataFuncAttributes) {
-            suffix = `\nvmcore.func_set_native(${obj_text}.${_obj_attribute});`
+            suffix = `\nvmcore.func_set_native(${target_text}.${_obj_attribute});`
         }
 
 
@@ -135,20 +135,20 @@ function extract_protype2(obj, obj_text, instance, special_attr) {
 
             //get、set以及value为方法的情况
             if (typeof Descriptors_detail === "function") {
-                // Descriptors_text += `function ${_obj_attribute}(){\nDeveloper.log("[dev] ${obj_text} ${_obj_attribute} 描述符 ${_descriptor} 被调用了");\n}`;  // screen.__proto__ availWidth 描述符 get 被调用了
+                // Descriptors_text += `function ${_obj_attribute}(){\nDeveloper.log("[dev] ${target_text} ${_obj_attribute} 描述符 ${_descriptor} 被调用了");\n}`;  // screen.__proto__ availWidth 描述符 get 被调用了
                 // {set:function(){console.log()}
 
 
                 if (_descriptor == "value") {
-                    Descriptors_text += `function ${_obj_attribute}(){\nDeveloper.log("[dev] ${obj_text} ${_obj_attribute} 描述符 [${_descriptor}] [call] 被调用了");\n}`;
+                    Descriptors_text += `function ${_obj_attribute}(){\nDeveloper.log("[dev] ${target_text} ${_obj_attribute} 描述符 [${_descriptor}] [call] 被调用了");\n}`;
                 }
                 else if (_descriptor == "get") {
-                    Descriptors_text += `function ${_obj_attribute}(){\nDeveloper.log("[dev] ${obj_text} ${_obj_attribute} 描述符 [${_descriptor}] 被调用了");
-                    return vmcore.propertymanager.${obj_text.split(".")[0]}.${_obj_attribute};\n}`;
+                    Descriptors_text += `function ${_obj_attribute}(){\nDeveloper.log("[dev] ${target_text} ${_obj_attribute} 描述符 [${_descriptor}] 被调用了");
+                    return vmcore.propertymanager.${target_text.split(".")[0]}.${_obj_attribute};\n}`;
                 }
                 else if (_descriptor == "set") {
-                    Descriptors_text += `function ${_obj_attribute}(val){\nDeveloper.log("[dev] ${obj_text} ${_obj_attribute} 描述符 [${_descriptor}] 被调用了");
-                    vmcore.propertymanager.${obj_text.split(".")[0]}.${_obj_attribute} = val;\n}`;
+                    Descriptors_text += `function ${_obj_attribute}(val){\nDeveloper.log("[dev] ${target_text} ${_obj_attribute} 描述符 [${_descriptor}] 被调用了");
+                    vmcore.propertymanager.${target_text.split(".")[0]}.${_obj_attribute} = val;\n}`;
                 }
                 Descriptors_text += ",\n";
 
@@ -166,7 +166,7 @@ function extract_protype2(obj, obj_text, instance, special_attr) {
         Descriptors_text += "}";
         // 设置描述符
         output_jscode += prefix;
-        output_jscode += `Object.defineProperty(${obj_text}, "${_obj_attribute}", ${Descriptors_text});`;
+        output_jscode += `Object.defineProperty(${target_text}, "${_obj_attribute}", ${Descriptors_text});`;
         output_jscode += suffix;
         output_jscode += "\n\n";
     }
@@ -179,26 +179,7 @@ function extract_protype2(obj, obj_text, instance, special_attr) {
 }
 
 
-var obj = EventTarget.prototype;
-var obj_text = "EventTarget.prototype";
-extract_protype(obj, obj_text);
-
-
-var obj = Location.prototype;
-var obj_text = "Location.prototype";
-extract_protype(obj, obj_text);
-
-var obj = Screen.prototype;
-var obj_text = "Screen.prototype";
-extract_protype(obj, obj_text);
-
-
-var instance = {
-    name: "York",
-    sayHi: function () {
-        console.log("Hi!");
-    }
-}
-var obj = instance;
-var obj_text = "instance";
-extract_protype(obj, obj_text);
+var prototypeObj = CanvasRenderingContext2D.prototype;
+var target_text = "CanvasRenderingContext2D.prototype";
+var instance = document["createElement"]("canvas")["getContext"]('2d');
+extract_prototype2(prototypeObj, target_text, instance)

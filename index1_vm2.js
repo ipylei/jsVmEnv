@@ -6,13 +6,14 @@ const { VM, VMScript } = require('vm2');
 var vmhelper = require('./VMHelper/vmhelper.exports.js');
 // 利用框架加载已补的环境代码
 var vmhelpercode = vmhelper.getCode({
-    proxy: false,
+    proxy: true,
     stack: false
 });
 
-const initfile = path.join(__dirname, "web_codes", "1_init.js");
-const codefile = path.join(__dirname, "web_codes", "2_code.js");
-const exportfile = path.join(__dirname, "web_codes", "3_export.js");
+let target_ = "jd";
+const initfile = path.join(__dirname, `projects/${target_}`, "1_init.js");
+const codefile = path.join(__dirname, `projects/${target_}`, "2_code.js");
+const exportfile = path.join(__dirname, `projects/${target_}`, "3_export.js");
 
 var total_code = vmhelpercode
     + fs.readFileSync(initfile)
@@ -31,18 +32,22 @@ const vm = new VM({
 
         setTimeout: setTimeout,
         setInterval: setTimeout,
-        // btoa: btoa,
-        // atob: atob,
+        btoa: btoa,
+        atob: atob,
         
     }
 });
 
-// const script = new VMScript(total_code, `<anonymous>`);
-// const my_exports = vm.run(script);
-// const my_exports = vm.run(total_code);
 
-total_code = `try{${total_code};debugger}catch(e){debugger;}; document.cookie`;
+//第1种执行方式
+// let script = new VMScript(total_code, `<anonymous>`);
+// const my_exports = vm.run(script);
+
+
+//第2种执行方式
+total_code = `try{${total_code};debugger}catch(e){debugger;};`;
 const my_exports = vm.run(total_code);
+
 console.log("导出对象获取成功!!!!", my_exports);
 console.log("ended......");
 

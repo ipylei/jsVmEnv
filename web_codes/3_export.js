@@ -1,6 +1,6 @@
-;console.log("enter export.js");
+; console.log("enter export.js");
 
-let task5 = setTimeout(function(){ilog("task5 setTimeout 3000", window.env)}, 3000);
+let task5 = setTimeout(function () { ilog("task5 setTimeout 3000", window.env) }, 3000);
 
 
 
@@ -21,3 +21,16 @@ clearTimeout(task5);
 // clearTimeout(3);
 // clearTimeout(4);
 // clearTimeout(5);
+
+
+
+function doSomething() {
+    var rand = parseInt(Math.random() * 10);
+    return "" + rand + ">>>>" + new Date();
+}
+
+
+// const fnReference = await context.evalClosure(`global.fn = function(arg) {
+//     return 'Hello, ' + arg;
+//   }`, [], { reference: true });
+
