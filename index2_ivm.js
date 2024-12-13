@@ -65,7 +65,7 @@ jail.setSync('ilog', function (...args) {
     2.直接运行
     3.搭建服务，供外部调用
 */
-var mode = 3;
+var mode = 1;
 
 // debugger模式
 if (mode == 1) {
