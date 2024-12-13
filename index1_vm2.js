@@ -10,10 +10,11 @@ var vmhelpercode = vmhelper.getCode({
     stack: false
 });
 
-let target_ = "jd";
-const initfile = path.join(__dirname, `projects/${target_}`, "1_init.js");
-const codefile = path.join(__dirname, `projects/${target_}`, "2_code.js");
-const exportfile = path.join(__dirname, `projects/${target_}`, "3_export.js");
+let target_site = "projects/jd";
+const initfile = path.join(__dirname, `${target_site}`, "1_init.js");
+// const codefile = path.join(__dirname, `${target_site}`, "2_code_ast.js");
+const codefile = path.join(__dirname, `${target_site}`, "2_code.js");
+const exportfile = path.join(__dirname, `${target_site}`, "3_export_in_vm.js");
 
 var total_code = vmhelpercode
     + fs.readFileSync(initfile)

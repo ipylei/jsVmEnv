@@ -18,10 +18,7 @@ vmcore.memory = {
     }
 }; //默认关闭打印
 
-
-
 ;;;
-//加;防止前面没有分号导致匿名函数报错
 (function () {
     "use strict";
 
@@ -68,38 +65,6 @@ vmcore.memory = {
     }
 
 }).call(window);
-
-var Developer = {
-    // log: console.log
-    log: ilog
-};
-
-/* hook console.log
-old_console_log = console.log;
-console.log = function () {
-    const safeArgs = [...arguments].map(function (arg) {
-        try {
-            // 尝试将参数转换为字符串
-            return JSON.stringify(arg);
-        } catch (e) {
-            // 如果转换失败，返回参数本身
-            return String(arg);
-        }
-    });
-    ilog(...safeArgs);
-
-    return old_console_log.apply(this, arguments);
-}; 
-*/
-// vmcore.func_set_native(console.log);
-
-// Error日志监控
-// Error.prepareStackTrace = function (error, structuredStackTrace) {
-//     Developer.log("有报错, 错误已打印，可以考虑在此处拦截\n", error)
-//     // error.stack = error.stack.replace(/vm.js/g, "<anonymous>")
-//     // Developer.log("有报错,已拦截，替换为\n", error.stack)
-//     return error
-// };
 
 
 vmcore.propertymanager = {};        //用来保存所有的访问器属性
@@ -161,6 +126,7 @@ vmcore.memory.PluginArray = {      // 游离的PluginArray实例对象，主要�
 vmcore.memory.MimeType = {         // 游离的MimeType实例对象，主要是绑定方法vmcore.memory.MimeType.$new
     // "$new": function () { }    
 };
+
 vmcore.memory.MimeTypeArray = {    // 游离的MimeTypeArray实例对象，主要是绑定属性vmcore.memory.MimeTypeArray._array
     // "_array": {}               
 };

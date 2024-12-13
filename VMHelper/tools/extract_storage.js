@@ -1,3 +1,7 @@
+copy(document.cookie);
+
+
+
 localStorage_string = "";
 // 遍历 localStorage 中的所有条目
 for (let i = 0; i < localStorage.length; i++) {
@@ -33,4 +37,5 @@ for (let i = 0; i < sessionStorage.length; i++) {
     console.log(key, value);
     sessionStorage_string += `sessionStorage.setItem('${key}', '${value}');\n`;
 }
+copy(sessionStorage_string);
 console.log(sessionStorage_string);

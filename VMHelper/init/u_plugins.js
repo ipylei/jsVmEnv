@@ -94,9 +94,9 @@ vmcore.addPlugin = function (data) {
         ]
 
     }
-    vmcore.addPlugin(sample1);
-    vmcore.addPlugin(sample2);
-    vmcore.addPlugin(sample3);
+    // vmcore.addPlugin(sample1);
+    // vmcore.addPlugin(sample2);
+    // vmcore.addPlugin(sample3);
 
 })()
 

@@ -11,7 +11,7 @@ Object.defineProperties(Storage.prototype, {
 });
 
 localStorage = new class localStorage { };
-localStorage._name_  = "localStorage";
+localStorage._name_ = "localStorage";
 localStorage.__proto__ = Storage.prototype;
 
 sessionStorage = new class sessionStorage { };
@@ -32,8 +32,10 @@ Object.defineProperty(Storage.prototype, "length", {
 
 
 Storage.prototype.getItem = function getItem(key) {
-    Developer.log("[dev] Storage.prototype getItem 描述符 value 被调用了", key, "this=", this._name_);
-    return this[key] || null;
+    let value = this[key] || null
+    Developer.log("[dev] Storage.prototype getItem 描述符 value 被调用了", key, value, "this=", this._name_);
+    debugger;
+    return value;
 }; vmcore.func_set_native(Storage.prototype.getItem);
 
 Storage.prototype.setItem = function setItem(key, value) {

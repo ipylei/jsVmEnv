@@ -24,9 +24,9 @@ clearTimeout(task5);
 
 
 
-function doSomething() {
+function doSomething(name) {
     var rand = parseInt(Math.random() * 10);
-    return "" + rand + ">>>>" + new Date();
+    return "" + name + ":" + rand + ">>>>" + new Date();
 }
 
 

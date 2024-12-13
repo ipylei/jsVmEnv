@@ -1045,9 +1045,9 @@ Object.defineProperty(Element.prototype, "childElementCount", {
     get: function childElementCount() {
         Developer.log("[dev] Element.prototype childElementCount 描述符 get 被调用了");
         if (this === vmcore.memory.elements.head) {
-            return 58;
+            return 61;
         } else if (this === vmcore.memory.elements.body) {
-            return 8;
+            return 7;
         }else{
             return vmcore.propertymanager.Element.childElementCount;
         }

@@ -16,7 +16,6 @@ Object.defineProperties(VMStack.prototype, {
 });
 
 
-
 //框架代理功能(注意：全局对象this是不可代理的，所以诸如使用this.document也就在window对象上没有代理到，但是document获取属性依旧会被代理到)
 vmcore.proxy = function (o) {
     if (!vmcore.memory.config.proxy) {
@@ -59,4 +58,3 @@ vmcore.proxy = function (o) {
     })
 
 }
-
