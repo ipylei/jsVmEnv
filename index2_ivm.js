@@ -8,8 +8,9 @@ let inspector = require('isolated-vm-inspector');
 var vmhelper = require('./VMHelper/vmhelper.exports.js');
 // 利用框架加载已补的环境代码
 var vmhelpercode = vmhelper.getCode({
-    proxy: false,
-    stack: false
+    proxy: false, 
+    devlog: true, 
+    stack: true
 });
 
 // let target_site = "web_codes"

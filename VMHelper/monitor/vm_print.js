@@ -1,6 +1,6 @@
 var Developer = {
     // log: console.log
-    log: vmcore.memory.config.proxy ? ilog : function () { }
+    log: vmcore.memory.config.devlog ? ilog : function () { }
 };
 
 

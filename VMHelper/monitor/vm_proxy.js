@@ -25,7 +25,8 @@ vmcore.proxy = function (o) {
     return new Proxy(o, {
 
         get(target, property, receiver) {
-            console.table([{ "type": "get<--", "obj": target, "property": property, "value": target[property] }]);
+            let result = target[property];
+            console.table([{ "type": "get<--", "obj": target, "property": property, "value":  result}]);
             if (vmcore.memory.config.stack) {
                 //打印调用栈
                 // console.trace("get<--");
@@ -33,7 +34,7 @@ vmcore.proxy = function (o) {
                 // console.log("%c" + stack, "color:#0000ff");
                 (new VMStack("get<--")).printStack();
             }
-            return target[property];
+            return result;
             // return Reflect.get(...arguments);
         },
 

@@ -1,4 +1,5 @@
 JS补环境框架，整体架构及执行流程如下:
+
 ```javascript
 > 框架本身代码
 > 1_init.js                 //初始化，如初始化document.cookie，navigator等
@@ -9,6 +10,17 @@ JS补环境框架，整体架构及执行流程如下:
 ```
 
 执行入口：
-
 ​	index1_vm2.js 使用vm2沙箱  
 ​	index2_ivm.js 使用isolated-vm沙箱，调试相比vm2更方便快捷
+
+
+
+<video src="./assets/m.mp4"></video>
+
+
+
+监控访问；根据调用栈定位
+
+<img src="./assets/1.png">
+
+<img src="./assets/2.png">
