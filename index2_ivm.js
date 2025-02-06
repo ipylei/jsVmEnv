@@ -13,9 +13,8 @@ var vmhelpercode = vmhelper.getCode({
     stack: true
 });
 
-// let target_site = "web_codes"
-
-let target_site = "projects/jd";
+let target_site = "web_codes"
+//let target_site = "projects/jd";
 
 const initfile = path.join(__dirname, `${target_site}`, "1_init.js");
 // const codefile = path.join(__dirname, `${target_site}`, "2_code_ast.js");
@@ -66,7 +65,7 @@ jail.setSync('ilog', function (...args) {
     2.直接运行
     3.搭建服务，供外部调用
 */
-var mode = 1;
+var mode = 2;
 
 // debugger模式
 if (mode == 1) {
