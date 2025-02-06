@@ -29,7 +29,6 @@ app.get('/', (req, res) => {
             "result": ret,
         }
         res.json(data);
-        res.send('Hello World! ' + ret);
     } catch (error) {
         const data = {
             "code": 0,
