@@ -1,41 +1,18 @@
 const fs = require('fs');
 const path = require("path");
 const ivm = require('isolated-vm');
-let inspector = require('isolated-vm-inspector');
+const inspector = require('isolated-vm-inspector');
+
+const jsexport = require("./jsexport.js");
 
 
-// 加载本地框架
-var vmhelper = require('./VMHelper/vmhelper.exports.js');
-// 利用框架加载已补的环境代码
-var vmhelpercode = vmhelper.getCode({
-    proxy: false, 
-    devlog: true, 
-    stack: true
-});
+let target_site = "web_codes";
+// let target_site = "projects/jd";
+var total_code = jsexport.getCode(target_site);
+// var total_code = fs.readFileSync(path.join(__dirname, "all.js"), 'utf-8');
 
-let target_site = "web_codes"
-//let target_site = "projects/jd";
-
-const initfile = path.join(__dirname, `${target_site}`, "1_init.js");
-// const codefile = path.join(__dirname, `${target_site}`, "2_code_ast.js");
-const codefile = path.join(__dirname, `${target_site}`, "2_code.js");
-const exportfile = path.join(__dirname, `${target_site}`, "3_export_in_vm.js");
-
+//初始化
 const isolate = new ivm.Isolate({ inspector: true }); // 内存限制为 128MB
-var total_code = vmhelpercode
-    + fs.readFileSync(initfile)
-    + fs.readFileSync(codefile)
-    + fs.readFileSync(exportfile);
-
-total_code = `try{
-                ${total_code};
-                debugger;
-            }
-            catch(e){
-                console.log("error", e);
-                debugger;
-            }; 
-            `;
 const script = isolate.compileScriptSync(total_code, { filename: "<anonymous>" });
 
 // 创建一个新的隔离实例
@@ -83,11 +60,4 @@ else if (mode == 2) {
     const my_exports = script.runSync(context);
     // console.log("导出对象获取成功 ===>", my_exports);
     console.log("ended......");
-}
-// 启动服务
-else if (mode == 3) {
-    const exportfile2 = path.join(__dirname, `${target_site}`, "4_export_in_node.js");
-    const serverfile = path.join(__dirname, `${target_site}`, "5_server.js");
-    const exportcode = "" + fs.readFileSync(exportfile2) + fs.readFileSync(serverfile);
-    eval(exportcode);
 }

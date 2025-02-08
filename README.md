@@ -1,12 +1,13 @@
 ### JS补环境框架，整体架构及执行流程如下:
 
 ```javascript
-> +框架本身代码
-> +1_init.js                 //初始化，如初始化document.cookie，navigator等
-> +2_code.js                 //目标网站的js文件
-> +3_export_in_vm.js         //对外导出函数，但执行环境是在沙箱中，如向外提供的函数依赖于目标网站
-> +4_export_in_node.js       //对外导出函数，但执行环境是在nodejs中，如需要加载一些库
-> +5_server.js               //向外提供api服务
++ 框架本身的代码                //模拟浏览器环境
++ 1_init.js                   //初始化，如初始化document.cookie，navigator等
++ 2_code.js                   //从网站上下载|扣取的js代码
++ 3_env_in_vm.js              //对外导出函数，但执行环境是在沙箱中，如向外提供的函数依赖于目标网站
+
+other: 4_env_in_node.js       //对外导出函数，但执行环境是在nodejs中，如需要加载一些库(如直接调用库执行AES加解密)
+other: 5_server.js            //向外提供api服务
 ```
 
 **执行入口：**</br>

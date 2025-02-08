@@ -1,12 +1,11 @@
-var fs = require('fs');
 //框架工具模块
-var vmmonitor = require('./monitor/agent.monitor.exports.js');
+const vmmonitor = require('./monitor/agent.monitor.exports.js');
 
 //加载自己实现的BOM和DOM
-var vmbom = require('./bom/agent.bom.exports.js');
-var vmdom = require('./dom/agent.dom.exports.js');
+const vmbom = require('./bom/agent.bom.exports.js');
+const vmdom = require('./dom/agent.dom.exports.js');
 
-var vminit = require('./init/agent.init.exports.js');
+const vminit = require('./init/agent.init.exports.js');
 
 function getCode(config = {}) {
     var code = "";

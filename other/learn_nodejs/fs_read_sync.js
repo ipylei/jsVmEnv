@@ -5,6 +5,7 @@ var fs = require('fs');
 var data = fs.readFileSync(`${__dirname}/sample.txt`, 'utf-8');
 var data2 = fs.readFileSync(`${__dirname}/sample.txt`);
 console.log(data);
+console.log(data2);
 console.log("---------------end-------------------");
 
 

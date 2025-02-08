@@ -2,24 +2,12 @@ const fs = require('fs');
 const path = require("path");
 const { VM, VMScript } = require('vm2');
 
-// 加载本地框架
-var vmhelper = require('./VMHelper/vmhelper.exports.js');
-// 利用框架加载已补的环境代码
-var vmhelpercode = vmhelper.getCode({
-    proxy: true,
-    stack: false
-});
+const jsexport = require("./jsexport.js"); 
 
+// let target_site = "web_codes";
 let target_site = "projects/jd";
-const initfile = path.join(__dirname, `${target_site}`, "1_init.js");
-// const codefile = path.join(__dirname, `${target_site}`, "2_code_ast.js");
-const codefile = path.join(__dirname, `${target_site}`, "2_code.js");
-const exportfile = path.join(__dirname, `${target_site}`, "3_export_in_vm.js");
+var total_code = jsexport.getCode(target_site);
 
-var total_code = vmhelpercode
-    + fs.readFileSync(initfile)
-    + fs.readFileSync(codefile)
-    + fs.readFileSync(exportfile);
 
 /* 创建一个vm对象，使用默认配置 */
 // const vm = new VM();
@@ -41,13 +29,13 @@ const vm = new VM({
 
 
 //第1种执行方式
-// let script = new VMScript(total_code, `<anonymous>`);
-// const my_exports = vm.run(script);
+let script = new VMScript(total_code, `<anonymous>`);
+const my_exports = vm.run(script);
 
 
 //第2种执行方式
-total_code = `try{${total_code};debugger}catch(e){debugger;};`;
-const my_exports = vm.run(total_code);
+// const my_exports = vm.run(total_code);
+
 
 console.log("导出对象获取成功!!!!", my_exports);
 console.log("ended......");
