@@ -12,7 +12,7 @@ var total_code = jsexport.getCode(target_site);
 // var total_code = fs.readFileSync(path.join(__dirname, "all.js"), 'utf-8');
 
 //初始化
-const isolate = new ivm.Isolate({ inspector: true }); // 内存限制为 128MB
+const isolate = new ivm.Isolate({ inspector: true }); 
 const script = isolate.compileScriptSync(total_code, { filename: "<anonymous>" });
 
 // 创建一个新的隔离实例
@@ -40,7 +40,6 @@ jail.setSync('ilog', function (...args) {
 /* mode
     1.debug模式
     2.直接运行
-    3.搭建服务，供外部调用
 */
 var mode = 2;
 
