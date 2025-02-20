@@ -6,9 +6,9 @@ function getCode(target_site) {
     var vmhelper = require('./VMHelper/vmhelper.exports.js');
     // 利用框架加载已补的环境代码
     var vmhelpercode = vmhelper.getCode({
-        proxy: true,
-        devlog: true,
-        stack: true
+        proxy: true,   //是否代理对象(如navigator、document等)，并打印日志
+        stack: true,   //代理对象是否打印调用栈
+        devlog: true,  //是否在控制台打印属性访问日志
     });
 
 

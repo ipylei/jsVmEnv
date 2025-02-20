@@ -6,8 +6,8 @@ const inspector = require('isolated-vm-inspector');
 const jsexport = require("./jsexport.js");
 
 
-let target_site = "web_codes";
-// let target_site = "projects/jd";
+// let target_site = "web_codes";
+let target_site = "projects/jd";
 var total_code = jsexport.getCode(target_site);
 // var total_code = fs.readFileSync(path.join(__dirname, "all.js"), 'utf-8');
 

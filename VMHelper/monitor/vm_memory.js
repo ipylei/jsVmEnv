@@ -12,9 +12,9 @@ var vmcore = {};
 //框架运行内存
 vmcore.memory = {
     config: {
-        print: false,
-        proxy: false,  //是否给document, navagator等对象添加代理(注：添加代理后只是便于调试)
-        stack: false //代理时是否打印调用栈
+        proxy: false,  //是否代理对象(如navigator、document等)，并打印日志
+        stack: false,  //代理对象是否打印调用栈
+        devlog: false, //是否在控制台打印属性访问日志
     }
 }; //默认关闭打印
 
