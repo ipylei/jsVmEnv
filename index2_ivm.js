@@ -3,16 +3,17 @@ const path = require("path");
 const ivm = require('isolated-vm');
 const inspector = require('isolated-vm-inspector');
 
-const jsexport = require("./jsexport.js");
+const jsexport = require("./allcode.js");
 
 
-// let target_site = "web_codes";
-let target_site = "projects/jd";
+let target_site = "web_codes";
+// let target_site = "projects/jd";
+// let target_site = "projects/yrx_match1";
 var total_code = jsexport.getCode(target_site);
 // var total_code = fs.readFileSync(path.join(__dirname, "all.js"), 'utf-8');
 
 //初始化
-const isolate = new ivm.Isolate({ inspector: true }); 
+const isolate = new ivm.Isolate({ inspector: true });
 const script = isolate.compileScriptSync(total_code, { filename: "<anonymous>" });
 
 // 创建一个新的隔离实例
@@ -23,40 +24,35 @@ const jail = context.global;
 
 jail.setSync('global', jail.derefInto());
 jail.setSync('env', "isolated-vm");
+jail.setSync('ilog', function (...args) {
+  console.log(...args);
+});
 
 jail.setSync('setTimeout', new ivm.Reference(setTimeout));
 jail.setSync('clearTimeout', new ivm.Reference(clearTimeout));
-// jail.setSync('setTimeout', setTimeout);
-// jail.setSync('setInterval', setInterval);
-
 jail.setSync('btoa', btoa);
 jail.setSync('atob', atob);
-jail.setSync('ilog', function (...args) {
-    console.log(...args);
-});
-//*/
-
 
 /* mode
     1.debug模式
     2.直接运行
 */
-var mode = 2;
+var mode = 1;
 
 // debugger模式
 if (mode == 1) {
-    inspector(isolate, {
-        port: 9222,
-        host: "127.0.0.1"
-    }, async () => {
-        let ret = await script.run(context);
-        console.log("=======>", ret);
-        debugger;
-    })
+  inspector(isolate, {
+    port: 9222,
+    host: "127.0.0.1"
+  }, async () => {
+    let ret = await script.run(context);
+    console.log("=======>", ret);
+    debugger;
+  })
 }
 // 普通执行
 else if (mode == 2) {
-    const my_exports = script.runSync(context);
-    // console.log("导出对象获取成功 ===>", my_exports);
-    console.log("ended......");
+  const my_exports = script.runSync(context);
+  // console.log("导出对象获取成功 ===>", my_exports);
+  console.log("ended......");
 }

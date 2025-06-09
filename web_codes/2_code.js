@@ -8,6 +8,12 @@ ilog("hello world1");
 ilog("hello world2");
 ilog("hello world3");
 
+var ret = new TextEncoder().encode("hello world").length;
+ilog(ret);
+
+ilog("hello world4");
+ilog("hello world5");
+ilog("hello world6");
 
 let task3 = setTimeout(function () {
     ilog("task3 setTimeout 3000", window.env);
@@ -17,11 +23,9 @@ let task4 = setTimeout(function () {
     ilog("task4 setTimeout 5000", window.env);
 }, 5000);
 
-ilog("hello world4");
-ilog("hello world4");
-ilog("hello world6");
+ilog("hello world7");
+ilog("hello world8");
+ilog("hello world9");
 
-
-eval(function(p,a,c,k,e,d){e=function(c){return(c<a?"":e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p;}('p b(j){1 7=j+"=";1 a=3.4.o(\';\');u(1 i=0;i<a.9;i++){1 c=a[i].s();f(c.q(7)==0)g c.v(7.9,c.9)}g""}1 6=b("6");1 5=B(b("5"));f(6==""||5==""){D("8=8; ",C)}x{1 k=5-y;3.4="6=; d=e, m l n 2:2:2 h;";3.4="5=; d=e, m l n 2:2:2 h;";3.4="t="+6+";";3.4="r="+k+";";A.8.z(w)}',40,40,'|var|00|document|cookie|secret|token|name|location|length|ca|getCookie||expires|Thu|if|return|UTC||cname|random|Jan|01|1970|split|function|indexOf||trim||for|substring|true|else|100|reload|window|parseInt|3000|setTimeout'.split('|'),0,{}))
 
 ilog(document.cookie);

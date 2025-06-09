@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "express": "^5.1.0",
+    "isolated-vm": "^5.0.4",
+    "isolated-vm-inspector": "^1.0.7",
+    "vm2": "^3.9.19"
+  }
+}

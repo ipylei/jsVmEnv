@@ -1034,45 +1034,45 @@ Object.defineProperty(window, "TextEvent", {
 });
 vmcore.func_set_native(window.TextEvent);
 
-Object.defineProperty(window, "TextEncoderStream", {
-    value: function TextEncoderStream() {
-        Developer.log("[dev] window TextEncoderStream 描述符 [value] [call] 被调用了");
-    },
-    writable: true,
-    enumerable: false,
-    configurable: true,
-});
-vmcore.func_set_native(window.TextEncoderStream);
+// Object.defineProperty(window, "TextEncoderStream", {
+//     value: function TextEncoderStream() {
+//         Developer.log("[dev] window TextEncoderStream 描述符 [value] [call] 被调用了");
+//     },
+//     writable: true,
+//     enumerable: false,
+//     configurable: true,
+// });
+// vmcore.func_set_native(window.TextEncoderStream);
 
-Object.defineProperty(window, "TextEncoder", {
-    value: function TextEncoder() {
-        Developer.log("[dev] window TextEncoder 描述符 [value] [call] 被调用了");
-    },
-    writable: true,
-    enumerable: false,
-    configurable: true,
-});
-vmcore.func_set_native(window.TextEncoder);
+// Object.defineProperty(window, "TextEncoder", {
+//     value: function TextEncoder() {
+//         Developer.log("[dev] window TextEncoder 描述符 [value] [call] 被调用了");
+//     },
+//     writable: true,
+//     enumerable: false,
+//     configurable: true,
+// });
+// vmcore.func_set_native(window.TextEncoder);
 
-Object.defineProperty(window, "TextDecoderStream", {
-    value: function TextDecoderStream() {
-        Developer.log("[dev] window TextDecoderStream 描述符 [value] [call] 被调用了");
-    },
-    writable: true,
-    enumerable: false,
-    configurable: true,
-});
-vmcore.func_set_native(window.TextDecoderStream);
+// Object.defineProperty(window, "TextDecoderStream", {
+//     value: function TextDecoderStream() {
+//         Developer.log("[dev] window TextDecoderStream 描述符 [value] [call] 被调用了");
+//     },
+//     writable: true,
+//     enumerable: false,
+//     configurable: true,
+// });
+// vmcore.func_set_native(window.TextDecoderStream);
 
-Object.defineProperty(window, "TextDecoder", {
-    value: function TextDecoder() {
-        Developer.log("[dev] window TextDecoder 描述符 [value] [call] 被调用了");
-    },
-    writable: true,
-    enumerable: false,
-    configurable: true,
-});
-vmcore.func_set_native(window.TextDecoder);
+// Object.defineProperty(window, "TextDecoder", {
+//     value: function TextDecoder() {
+//         Developer.log("[dev] window TextDecoder 描述符 [value] [call] 被调用了");
+//     },
+//     writable: true,
+//     enumerable: false,
+//     configurable: true,
+// });
+// vmcore.func_set_native(window.TextDecoder);
 
 Object.defineProperty(window, "Text", {
     value: function Text() {

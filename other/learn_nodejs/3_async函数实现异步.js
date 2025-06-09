@@ -1,4 +1,5 @@
 const fs = require('fs');
+var co = require('co');
 
 //1.实现返回Promise对象的函数
 const readFile = function (fileName) {
@@ -11,20 +12,23 @@ const readFile = function (fileName) {
     });
 };
 
-// //2.主程序yield Promise对象
-// const gen = function  * () {
-//     const f1 = yield readFile('/etc/fstab');
-//     const f2 = yield readFile('/etc/shells');
-//     console.log(f1.toString());
-//     console.log(f2.toString());
-// };
-// //-------------------------------------------
+// *
+//2.主程序yield Promise对象
+const gen = function  * () {
+    const f1 = yield readFile(`${__dirname}/copied.txt`);
+    const f2 = yield readFile(`${__dirname}/sample.txt`);
+    console.log(f1.toString());
+    console.log(f2.toString());
+};
+//-------------------------------------------
 
-// //3.自动执行器皿
-// co(gen)
+//3.自动执行器皿
+co(gen)
+//*/
 
 
 //现在第2-3步可以替换为下面
+/*
 const asyncReadFile = async function () {
     var r1 = await readFile(`${__dirname}/copied.txt`);
     console.log(r1.toString());
@@ -39,3 +43,4 @@ var ret = asyncReadFile().then(function (data) {
 })
 //调用该函数时，会立即返回一个Promise对象。
 console.log("===============", ret);
+//*/

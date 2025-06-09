@@ -2,11 +2,13 @@ const fs = require('fs');
 const path = require("path");
 const { VM, VMScript } = require('vm2');
 
-const jsexport = require("./jsexport.js"); 
+const jsexport = require("./allcode.js"); 
 
-// let target_site = "web_codes";
-let target_site = "projects/jd";
+let target_site = "web_codes";
+// let target_site = "projects/jd";
+// let target_site = "projects/yrx_match1";
 var total_code = jsexport.getCode(target_site);
+
 
 
 /* 创建一个vm对象，使用默认配置 */
@@ -23,10 +25,9 @@ const vm = new VM({
         setInterval: setTimeout,
         btoa: btoa,
         atob: atob,
-        
     }
 });
-
+console.log("~~~~~~~~~~~~~~~~~~~~ success ~~~~~~~~~~~~~~~~~~~~");
 
 //第1种执行方式
 let script = new VMScript(total_code, `<anonymous>`);
