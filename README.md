@@ -5,8 +5,6 @@
 + webcodes/1_init.js           //初始化，如初始化document.cookie，navigator等
 + webcodes/2_code.js           //从网站上下载|扣取的js代码
 + webcodes/3_env_in_vm.js      //对外导出函数，但执行环境是在沙箱中，如向外提供的函数依赖于目标网站
-
-option: webcodes/4_env_in_node.js       //对外导出函数，但执行环境是在nodejs中，如需要加载一些库(如直接调用库执行AES加解密)
 ```
 
 **执行入口：**</br>
