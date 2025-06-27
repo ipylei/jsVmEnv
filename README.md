@@ -7,7 +7,6 @@
 + webcodes/3_env_in_vm.js      //对外导出函数，但执行环境是在沙箱中，如向外提供的函数依赖于目标网站
 
 option: webcodes/4_env_in_node.js       //对外导出函数，但执行环境是在nodejs中，如需要加载一些库(如直接调用库执行AES加解密)
-option: webcodes/5_server.js            //向外提供api服务
 ```
 
 **执行入口：**</br>
