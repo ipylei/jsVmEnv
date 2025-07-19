@@ -29,7 +29,7 @@ Object.defineProperties(Window.prototype, {
 //Window.prototype
 //--------------------------------------------------------
 //--------------------------------------------------------
-
+vmcore.propertymanager.window = {};
 
 //--------------------------------------------------------
 vmcore.memory.getRandomInt = function getRandomInt(min, max) {
@@ -121,6 +121,21 @@ Object.defineProperty(window, "clearInterval", {
 vmcore.func_set_native(window.clearInterval);
 
 
+vmcore.propertymanager.window.name = "";
+Object.defineProperty(window, "name", {
+    enumerable: true,
+    configurable: true,
+    get: function () {
+        Developer.log("[dev] window.name 描述符 get 被调用了");
+        return vmcore.propertymanager.window.name.toString();
+    },
+    set: function (val) {
+        Developer.log("[dev] window.name 描述符 set 被调用了", val);
+        vmcore.propertymanager.window.name = val;
+    }
+});
+
+
 
 class TextEncoder {
     constructor() {
@@ -152,6 +167,7 @@ class TextEncoder {
         return buffer.subarray(0, pos);
     }
 }
+vmcore.func_set_native(TextEncoder);
 
 class TextDecoder {
     constructor(encoding = 'utf-8') {
@@ -185,10 +201,10 @@ class TextDecoder {
         return str;
     }
 }
+vmcore.func_set_native(TextEncoder);
 
 //--------------------------------------------------------
 //补完window的属性或方法后，再构建起window->Window的原型链
 window.__proto__ = Window.prototype;
 // Window.prototype.__proto__ = WindowProperties.prototype;  //放到WindowProperties.js中去补
 
-vmcore.propertymanager.window = {};

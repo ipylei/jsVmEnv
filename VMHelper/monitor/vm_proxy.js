@@ -15,18 +15,25 @@ Object.defineProperties(VMStack.prototype, {
     }
 });
 
+console_log = console.log;
+console_table = console.table;
 
 //框架代理功能(注意：全局对象this是不可代理的，所以诸如使用this.document也就在window对象上没有代理到，但是document获取属性依旧会被代理到)
-vmcore.proxy = function (o) {
+vmcore.proxy = function (o, name) {
+
     if (!vmcore.memory.config.proxy) {
         return o
+    }
+
+    if (!name) {
+        name = o;
     }
 
     return new Proxy(o, {
 
         get(target, property, receiver) {
             let result = target[property];
-            console.table([{ "type": "get<--", "obj": target, "property": property, "value":  result}]);
+            console.table([{ "type": "get<--", "obj": name, "property": property, "value": result }]);
             if (vmcore.memory.config.stack) {
                 //打印调用栈
                 // console.trace("get<--");
@@ -39,7 +46,7 @@ vmcore.proxy = function (o) {
         },
 
         set(target, property, value, receiver) {
-            console.table([{ "type": "set-->", "obj": target, "property": property, "value": value }]);
+            console.table([{ "type": "set-->", "obj": name, "property": property, "value": value }]);
             if (vmcore.memory.config.stack) {
                 (new VMStack("set-->")).printStack();
             }
@@ -47,9 +54,19 @@ vmcore.proxy = function (o) {
             // return Reflect.set(target, property, value);
         },
 
+        has(target, key) {
+            // 在检查属性存在性时输出一条消息
+            console.table(`检查属性存在性: ${name}.${key.toString()}`);
+            return key in target;
+        },
 
+        ownKeys(target) {
+            console.table(`获取自有属性:${name}`);
+            return Reflect.ownKeys(target);
+        },
+        
         deleteProperty(target, key) {
-            console.table([{ "type": "delete-->", "obj": target, "property": key }]);
+            console.table([{ "type": "delete-->", "obj": name, "property": key }]);
             if (vmcore.memory.config.stack) {
                 (new VMStack("delete-->")).printStack();
             }

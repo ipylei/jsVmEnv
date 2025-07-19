@@ -28,6 +28,7 @@ function getCode() {
     code += fs.readFileSync(`${__dirname}/elements/HTMLFormElement.js`) + "\r\n";     //form标签
     code += fs.readFileSync(`${__dirname}/elements/HTMLImageElement.js`) + "\r\n";    //img标签
     code += fs.readFileSync(`${__dirname}/elements/HTMLMetaElement.js`) + "\r\n";     //meta标签
+    code += fs.readFileSync(`${__dirname}/elements/HTMLIFrameElement.js`) + "\r\n";     //frame标签
     return code;
 }
 

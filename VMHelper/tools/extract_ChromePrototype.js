@@ -140,14 +140,14 @@ function extract_prototype2(target, target_text, instance, special_attr) {
 
 
                 if (_descriptor == "value") {
-                    Descriptors_text += `function ${_obj_attribute}(){\nDeveloper.log("[dev] ${target_text} ${_obj_attribute} 描述符 [${_descriptor}] [call] 被调用了");\n}`;
+                    Descriptors_text += `function ${_obj_attribute}(){\nDeveloper.log("[dev] ${target_text}.${_obj_attribute} 描述符 [${_descriptor}] [call] 被调用了");\n}`;
                 }
                 else if (_descriptor == "get") {
-                    Descriptors_text += `function ${_obj_attribute}(){\nDeveloper.log("[dev] ${target_text} ${_obj_attribute} 描述符 [${_descriptor}] 被调用了");
+                    Descriptors_text += `function ${_obj_attribute}(){\nDeveloper.log("[dev] ${target_text}.${_obj_attribute} 描述符 [${_descriptor}] 被调用了");
                     return vmcore.propertymanager.${target_text.split(".")[0]}.${_obj_attribute};\n}`;
                 }
                 else if (_descriptor == "set") {
-                    Descriptors_text += `function ${_obj_attribute}(val){\nDeveloper.log("[dev] ${target_text} ${_obj_attribute} 描述符 [${_descriptor}] 被调用了");
+                    Descriptors_text += `function ${_obj_attribute}(val){\nDeveloper.log("[dev] ${target_text}.${_obj_attribute} 描述符 [${_descriptor}] 被调用了");
                     vmcore.propertymanager.${target_text.split(".")[0]}.${_obj_attribute} = val;\n}`;
                 }
                 Descriptors_text += ",\n";

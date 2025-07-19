@@ -12,11 +12,15 @@ var vmcore = {};
 //框架运行内存
 vmcore.memory = {
     config: {
-        proxy: false,  //是否代理对象(如navigator、document等)，并打印日志
-        stack: false,  //代理对象是否打印调用栈
-        devlog: false, //是否在控制台打印属性访问日志
+        // proxy: false,  //是否代理对象(如navigator、document等)，并打印日志
+        // stack: false,  //代理对象是否打印调用栈
+        // devlog: false, //是否在控制台打印属性访问日志
     }
-}; //默认关闭打印
+}; 
+//默认关闭打印
+vmcore.memory.config.proxy = false;
+vmcore.memory.config.stack = false;
+vmcore.memory.config.devlog = false;
 
 ;;;
 (function () {
@@ -67,7 +71,7 @@ vmcore.memory = {
 }).call(window);
 
 
-vmcore.propertymanager = {};        //用来保存所有的访问器属性
+vmcore.propertymanager = {};      //用来保存所有的访问器属性
 vmcore.memory.cookie_copy = {};  //用来保存cookie值，以object格式展示，而不是String
 
 //游离的标签

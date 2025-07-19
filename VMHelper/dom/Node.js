@@ -306,10 +306,15 @@ Object.defineProperty(Node.prototype, "DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC
 Object.defineProperty(Node.prototype, "appendChild", {
     value: function appendChild(element) {
         Developer.log("[dev] Node.prototype appendChild 描述符 value 被调用了");
-        
-        //form标签有点特殊
+
+        //form标签有点特殊，会设置到 WindowProperties[form.id]上
         if (element instanceof HTMLFormElement && element.id) {
             window.__proto__.__proto__[element.id] = element;
+        }
+
+        //iframe标签有点特殊: .appendChild(iframe)后，iframe.contentWindow 属性就是window了
+        if (element instanceof HTMLIFrameElement) {
+            element._contentWindow = window;
         }
     },
     writable: true,

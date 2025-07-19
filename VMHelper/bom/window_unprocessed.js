@@ -245,19 +245,19 @@ Object.defineProperty(BatteryManager.prototype, "onlevelchange", {
     configurable: true,
 });
 
-vmcore.propertymanager.window.name = "";
-Object.defineProperty(window, "name", {
-    enumerable: true,
-    configurable: true,
-    get: function () {
-        Developer.log("[dev] window name 描述符 get 被调用了");
-        return vmcore.propertymanager.window.name;
-    },
-    set: function (val) {
-        Developer.log("[dev] window name 描述符 set 被调用了", val);
-        vmcore.propertymanager.window.name = val;
-    }
-})
+// vmcore.propertymanager.window.name = "";
+// Object.defineProperty(window, "name", {
+//     enumerable: true,
+//     configurable: true,
+//     get: function () {
+//         Developer.log("[dev] window name 描述符 get 被调用了");
+//         return vmcore.propertymanager.window.name;
+//     },
+//     set: function (val) {
+//         Developer.log("[dev] window name 描述符 set 被调用了", val);
+//         vmcore.propertymanager.window.name = val;
+//     }
+// });
 
 
 Object.defineProperty(window, "Option", {

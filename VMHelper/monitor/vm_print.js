@@ -26,8 +26,11 @@ vmcore.func_set_native(console.log);
 
 // Error日志监控
 // Error.prepareStackTrace = function (error, structuredStackTrace) {
-//     Developer.log("有报错, 错误已打印，可以考虑在此处拦截\n", error)
-//     // error.stack = error.stack.replace(/vm.js/g, "<anonymous>")
-//     // Developer.log("有报错,已拦截，替换为\n", error.stack)
+//     if (!(error instanceof VMStack)) {
+//         Developer.log("有报错, 错误已打印，可以考虑在此处拦截\n", error)
+//         // error.stack = error.stack.replace(/vm.js/g, "<anonymous>")
+//         // Developer.log("有报错,已拦截，替换为\n", error.stack)
+//     }
+// 
 //     return error
 // };
